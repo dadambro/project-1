@@ -1,0 +1,22 @@
+---
+title: "Project 1"
+author: "Damon D'Ambrosio"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Requirements
+
+A list of required functions and packages will go here.
+
+## API Interaction functions
+
+Some custom functions and their descriptions will go here.
+
+## Data Exploration
+
+A narrative showing a data exploration activity will go here. I have a preliminary idea of what I would like to do, depending on the information 
