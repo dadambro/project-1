@@ -434,17 +434,19 @@ return(poke.table)
 make a query for Rhydon, using imperial units:</p>
 <pre class="r"><code>pokemon.lookup(&quot;rhydon&quot;, unit = &quot;imperial&quot;)</code></pre>
 <pre><code>## # A tibble: 1 × 11
-##   name   id.number type1  type2 height weight    hp attack special.attack special.defense speed
-##   &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;          &lt;int&gt;           &lt;int&gt; &lt;int&gt;
-## 1 Rhydon       112 ground rock      75    265   105    130             45              45    40</code></pre>
+##   name   id.number type1  type2 height weight    hp attack special.attack
+##   &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;          &lt;int&gt;
+## 1 Rhydon       112 ground rock      75    265   105    130             45
+## # ℹ 2 more variables: special.defense &lt;int&gt;, speed &lt;int&gt;</code></pre>
 <p>Now lets demonstrate how it functions with using a numeric Pokemon ID
 and metric units. How about one of the 300 first pokemon, selected
 randomly?</p>
 <pre class="r"><code>pokemon.lookup(sample(1:300,1), unit = &quot;metric&quot;)</code></pre>
 <pre><code>## # A tibble: 1 × 11
-##   name    id.number type1 type2 height weight    hp attack special.attack special.defense speed
-##   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;          &lt;int&gt;           &lt;int&gt; &lt;int&gt;
-## 1 Shuckle       213 bug   rock     0.6   20.5    20     10             10             230     5</code></pre>
+##   name  id.number type1  type2 height weight    hp attack special.attack
+##   &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;          &lt;int&gt;
+## 1 Ekans        23 poison &lt;NA&gt;       2    6.9    35     60             40
+## # ℹ 2 more variables: special.defense &lt;int&gt;, speed &lt;int&gt;</code></pre>
 </div>
 </div>
 <div id="data-exploration" class="section level2">
