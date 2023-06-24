@@ -384,7 +384,7 @@ It appears that within Generation I, there are no "outliers" within each type as
 
 Let's look at defense. First, the overall histogram:
 
-```{r}
+```{r defense_histogram}
 g <- ggplot(my.data, aes(defense))
 
 g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Defense") + ylab("Count") + theme_classic()
@@ -392,7 +392,7 @@ g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1
 
 Looks like some right skew, especially when compared to the Attack graph. Let's check the boxplot:
 
-```{r}
+```{r defense_boxplot}
 g <- ggplot(my.data, aes(x=type1, y = defense, fill = type1))
 
 g + geom_boxplot() + xlab("Type") + ylab("Base Defense") + 
@@ -406,7 +406,7 @@ Here, we see Rock-type Pokemon, and Ground-type to a lesser extent, stand out as
 
 Let's check speed the same way. Histogram first:
 
-```{r}
+```{r speed_histogram}
 g <- ggplot(my.data, aes(speed))
 
 g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Speed") + ylab("Count") + theme_classic()
@@ -416,7 +416,7 @@ Somewhat normal, with perhaps a touch of right skew.
 
 Now boxplots:
 
-```{r}
+```{r speed_boxplot}
 g <- ggplot(my.data, aes(x=type1, y = speed, fill = type1))
 
 g + geom_boxplot() + 
@@ -432,7 +432,7 @@ It appears Electric- and Psychic-type Pokemon are fast, and there is one really 
 
 Now for HP. Histogram:
 
-```{r}
+```{r hp_histogram}
 g <- ggplot(my.data, aes(hp))
 
 g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base HP") + ylab("Count") + theme_classic()
@@ -440,7 +440,7 @@ g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1
 
 Lots of skew. There appear to be a few Pokemon with a ton of base hp. Now the boxplots:
 
-```{r}
+```{r hp_boxplot}
 g <- ggplot(my.data, aes(x=type1, y = hp, fill = type1))
 
 g + geom_boxplot() + xlab("Type") + ylab("Base HP") + 
@@ -539,16 +539,21 @@ my.data %>% arrange(delta.distance) %>% select(1:4, 16)
 
 Ah, Mewtwo. He was (and still is, as far as I know) the "strongest" Generation I Pokemon, so he could afford to be "weakened" a bit. Here's how each Generation I Pokemon changed as a result of the Special split:
 
-```{r}
+```{r all_pokemon_split, fig.width= 14}
+#Creating name vector to order Pokemon on the x-axis by their ID number
+name.vector <- my.data$name
+
 g <- ggplot(my.data, aes(x = name, y = delta.distance, fill = type1))
 
 g + geom_hline(yintercept = 0) + 
-  geom_bar(stat = "identity", position = position_dodge(.2)) + 
+  geom_bar(stat = "identity", position = position_dodge(.2)) +
   ylab("Change after Special Stat Split") + 
-  scale_x_discrete(guide = guide_axis(angle = 90)) + 
+  scale_x_discrete(guide = guide_axis(angle = 90), limits = name.vector) + 
   scale_fill_manual(name = "Type", values = poke.colors) + 
   theme_classic() + 
-  theme(legend.position = "top" , axis.text.x = element_text(size = 4), axis.title.x = element_blank())
+  theme(legend.position = "top" , axis.text.x = element_text(size = 7), axis.title.x = element_blank(), 
+        axis.text.y = element_text(size = 15), axis.title.y = element_text(size = 15), 
+        legend.title = element_text(size = 15), legend.text = element_text(size = 12))
 ```
 
 The graph shows Mewtwo being "weakened" the most of all. Two Fighting-type Pokemon, Hitmonchan and Hitmonlee, appeared to benefit greatly from the Special split. Overall, as the initial contingency table showed, there is a pretty nice division of "weakened" and "improved" Pokemon, albeit inconsistent across primary typing.

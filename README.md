@@ -117,9 +117,9 @@ pokemon.lookup(sample(1:300,1), unit = "metric")
 ```
 
     ## # A tibble: 1 × 12
-    ##   name    id.number type1 type2 height weight    hp attack defense special.attack special.defense speed
-    ##   <chr>       <int> <chr> <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
-    ## 1 Goldeen       118 water <NA>     0.6     15    45     67      60             35              50    63
+    ##   name   id.number type1  type2 height weight    hp attack defense special.attack special.defense speed
+    ##   <chr>      <int> <chr>  <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
+    ## 1 Meowth        52 normal <NA>     0.4    4.2    40     45      35             40              40    90
 
 The ultimate plan is to use `lapply` on `pokemon.lookup` to generate
 large reports for analysis. However, there is some functionality I would
@@ -732,7 +732,7 @@ g <- ggplot(my.data, aes(defense))
 g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Defense") + ylab("Count") + theme_classic()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](README_files/figure-gfm/defense_histogram-1.png)<!-- -->
 
 Looks like some right skew, especially when compared to the Attack
 graph. Let’s check the boxplot:
@@ -747,7 +747,7 @@ g + geom_boxplot() + xlab("Type") + ylab("Base Defense") +
   theme(legend.position = "none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](README_files/figure-gfm/defense_boxplot-1.png)<!-- -->
 
 Here, we see Rock-type Pokemon, and Ground-type to a lesser extent,
 stand out as those with the highest Defense stat. We do see potential
@@ -761,7 +761,7 @@ g <- ggplot(my.data, aes(speed))
 g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Speed") + ylab("Count") + theme_classic()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](README_files/figure-gfm/speed_histogram-1.png)<!-- -->
 
 Somewhat normal, with perhaps a touch of right skew.
 
@@ -779,7 +779,7 @@ g + geom_boxplot() +
   theme(legend.position = "none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](README_files/figure-gfm/speed_boxplot-1.png)<!-- -->
 
 It appears Electric- and Psychic-type Pokemon are fast, and there is one
 really slow Water-type Pokemon.
@@ -792,7 +792,7 @@ g <- ggplot(my.data, aes(hp))
 g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base HP") + ylab("Count") + theme_classic()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](README_files/figure-gfm/hp_histogram-1.png)<!-- -->
 
 Lots of skew. There appear to be a few Pokemon with a ton of base hp.
 Now the boxplots:
@@ -807,7 +807,7 @@ g + geom_boxplot() + xlab("Type") + ylab("Base HP") +
   theme(legend.position = "none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](README_files/figure-gfm/hp_boxplot-1.png)<!-- -->
 
 Both of those high HP Pokemon appear to be Normal-type. Now, let’s wrap
 up with a brief look and discussion of the “Special” stats.
@@ -996,18 +996,23 @@ Generation I Pokemon, so he could afford to be “weakened” a bit. Here’s
 how each Generation I Pokemon changed as a result of the Special split:
 
 ``` r
+#Creating name vector to order Pokemon on the x-axis by their ID number
+name.vector <- my.data$name
+
 g <- ggplot(my.data, aes(x = name, y = delta.distance, fill = type1))
 
 g + geom_hline(yintercept = 0) + 
-  geom_bar(stat = "identity", position = position_dodge(.2)) + 
+  geom_bar(stat = "identity", position = position_dodge(.2)) +
   ylab("Change after Special Stat Split") + 
-  scale_x_discrete(guide = guide_axis(angle = 90)) + 
+  scale_x_discrete(guide = guide_axis(angle = 90), limits = name.vector) + 
   scale_fill_manual(name = "Type", values = poke.colors) + 
   theme_classic() + 
-  theme(legend.position = "top" , axis.text.x = element_text(size = 4), axis.title.x = element_blank())
+  theme(legend.position = "top" , axis.text.x = element_text(size = 7), axis.title.x = element_blank(), 
+        axis.text.y = element_text(size = 15), axis.title.y = element_text(size = 15), 
+        legend.title = element_text(size = 15), legend.text = element_text(size = 12))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/all_pokemon_split-1.png)<!-- -->
 
 The graph shows Mewtwo being “weakened” the most of all. Two
 Fighting-type Pokemon, Hitmonchan and Hitmonlee, appeared to benefit
