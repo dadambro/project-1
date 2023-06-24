@@ -126,9 +126,9 @@ pokemon.lookup(sample(1:300,1), unit = "metric")
 ```
 
     ## # A tibble: 1 × 12
-    ##   name       id.number type1  type2 height weight    hp attack defense special.attack special.defense speed
-    ##   <chr>          <int> <chr>  <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
-    ## 1 Wigglytuff        40 normal fairy      1     12   140     70      45             85              50    45
+    ##   name     id.number type1 type2 height weight    hp attack defense special.attack special.defense speed
+    ##   <chr>        <int> <chr> <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
+    ## 1 Sceptile       254 grass <NA>     1.7   52.2    70     85      65            105              85   120
 
 The ultimate plan is to use `lapply` on `pokemon.lookup` to generate
 large reports for analysis. However, there is some functionality I would
@@ -292,10 +292,11 @@ gen1.correction(c, delete.sp.att.def = TRUE)
     ## 2 Scizor          212 bug      steel     18   1180    70    130     100    65           NA
 
 As we can see, Magnemite had its secondary Steel type assigned to NA,
-while Scizor retained its secondary Steel type. A warning message was
+while Scizor retained its secondary Steel type. Warning messages were
 printed since a Pokemon outside of Generation I was in the report while
-Special Attack and Special Defense were deleted. Finally, Scizor does
-not have a `gen1.special` value.
+type changes occured and Special Attack and Special Defense were
+deleted. Finally, Scizor does not have a `gen1.special` value, which one
+would expect.
 
 ### `pokemon.batch.report`
 
@@ -499,8 +500,8 @@ setdiff(type2.column, type1.column)
     ## [1] NA       "flying"
 
 No Generation I Pokemon had a non-existent primary typing (as expected,
-as every Pokemon has a primary type). Further, no Pokemon has Flying as
-its primary type.
+as every Pokemon has at least a primary type). Further, no Pokemon has
+Flying as its primary type.
 
 ### Height and Weight
 
@@ -841,7 +842,10 @@ simply called “Special.” This caused issues with “balance” in the games,
 as a Pokemon with a high Special could both dole out heavy damage if
 using a special-type move, and similarly, do an admirable job of
 withstanding special type attacks. Splitting this stat into Special
-Attack and Special Defense helped correct the issue.
+Attack and Special Defense helped correct the issue by creating the
+possibility of certain Pokemon being “good” at causing damage with
+Special-type moves (i.e., high Special Attack) while being susceptible
+to Special-type moves (i.e., low Special Defense), and vice versa.
 
 I am curious to see how each Generation I Pokemon was affected by this
 “split” of the Special stat. My idea for investigating this is as
@@ -862,12 +866,13 @@ g + geom_abline(slope = 1, intercept = 0) +
 
 Assuming Special Attack and Special Defense are equally useful, a
 Pokemon can thought to be “stronger” in terms of Special stats the
-further away it is from the hypothetical (0,0) point. The figure above
-shows a nice split in the number of Pokemon “above” the reference line
-(i.e., better Special Defense) and “below” the reference line (i.e.,
-better Special Attack). This is how the figure would look if considering
-the Generation I Special stat, wherein “Special Attack” and “Special
-Defense” are identical:
+further away it is from the hypothetical (0,0) point (i.e., the
+hypothetical state of having both an awful Special Attack and Special
+Defense). The figure above shows a nice split in the number of Pokemon
+“above” the reference line (i.e., better Special Defense) and “below”
+the reference line (i.e., better Special Attack). This is how the figure
+would look if considering the Generation I Special stat, wherein
+“Special Attack” and “Special Defense” are identical:
 
 ``` r
 g <- ggplot(my.data, aes(x=gen1.special, y = gen1.special, color = type1))
@@ -952,9 +957,9 @@ table(my.data$type1, my.data$status)
 
 It does not hold up. It looks like some types, such as Psychic, were
 overall weakened by this stat change. Others, like Normal, appear to
-have improvement. All Ghost-type Pokemon were weakened, whereas almost
-all Fighting-type Pokemon were improved. Let’s see a bar graph to better
-understand the actual amount of change:
+have some improvement. All Ghost-type Pokemon were weakened, whereas
+almost all Fighting-type Pokemon were improved. Let’s see a bar graph to
+better understand the actual amount of change:
 
 ``` r
 g <- ggplot(my.data, aes(x = type1, y = delta.distance, fill = type1))
@@ -1007,7 +1012,7 @@ g + geom_hline(yintercept = 0) +
   scale_x_discrete(guide = guide_axis(angle = 90)) + 
   scale_fill_manual(name = "Type", values = poke.colors) + 
   theme_classic() + 
-  theme(legend.position = "top" , axis.text.x = element_text(size = 3), axis.title.x = element_blank())
+  theme(legend.position = "top" , axis.text.x = element_text(size = 4), axis.title.x = element_blank())
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
@@ -1016,7 +1021,7 @@ The graph shows Mewtwo being “weakened” the most of all. Two
 Fighting-type Pokemon, Hitmonchan and Hitmonlee, appeared to benefit
 greatly from the Special split. Overall, as the initial contingency
 table showed, there is a pretty nice division of “weakened” and
-“improved” Pokemon.
+“improved” Pokemon, albeit inconsistent across primary typing.
 
 ## Conclusion
 

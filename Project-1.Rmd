@@ -190,7 +190,7 @@ c <- bind_rows(a,b)
 gen1.correction(c, delete.sp.att.def = TRUE)
 ```
 
-As we can see, Magnemite had its secondary Steel type assigned to NA, while Scizor retained its secondary Steel type. A warning message was printed since a Pokemon outside of Generation I was in the report while Special Attack and Special Defense were deleted. Finally, Scizor does not have a `gen1.special` value.
+As we can see, Magnemite had its secondary Steel type assigned to NA, while Scizor retained its secondary Steel type. Warning messages were printed since a Pokemon outside of Generation I was in the report while type changes occured and Special Attack and Special Defense were deleted. Finally, Scizor does not have a `gen1.special` value, which one would expect.
 
 ### `pokemon.batch.report`
 
@@ -254,7 +254,9 @@ type1.table <- type.table %>%
 
 print(type1.table)
 ```
+
 As we can see, a whopping 28 Generation I Pokemon (~18.5%) had Water as their primary type. Conversely, there were only 2 Pokemon with Ice as their primary type (~1.3%). Let's repeat the process for the secondary type (`type2`):
+
 ```{r type2_table}
 type2.table <- type.table %>%
   as.data.frame() %>%
@@ -267,6 +269,7 @@ type2.table <- type.table %>%
 
 print(type2.table)
 ```
+
 As we can see, the majority of Generation I Pokemon do not have a secondary type (i.e., `type2` = `NA`). Flying and Poison are tied for the most common secondary type. Flying was not a type that appeared in our type1 table, and Normal was not a type that appeared in our type2 table. This indicates some types in Generation I only exist as primary types, whereas others only exist as secondary types. Let's see which types fall into these categories. First, types that only appear as a primary type (`type1`):
 
 ```{r type1_only}
@@ -281,13 +284,15 @@ type2.column <- type2.table$type
 #Compare
 setdiff(type1.column, type2.column)
 ```
+
 No Generation I Pokemon had a secondary typing of Normal, Bug, Fire, Electric, Dragon, or Ghost. Let's look at `type2`:
 
 ```{r type2_only}
 #Compare
 setdiff(type2.column, type1.column)
 ```
-No Generation I Pokemon had a non-existent primary typing (as expected, as every Pokemon has a primary type). Further, no Pokemon has Flying as its primary type.
+
+No Generation I Pokemon had a non-existent primary typing (as expected, as every Pokemon has at least a primary type). Further, no Pokemon has Flying as its primary type.
 
 ### Height and Weight
 
@@ -315,6 +320,7 @@ my.data %>% group_by(type2) %>%
   summarize(average = mean(weight), median = median(weight), min = min(weight), max = max(weight), sd = sd(weight)) %>%
   arrange(desc(average))
 ```
+
 Interesting. Flying-type Pokemon shake out in the middle of the pack. Apparently there are some very heavy flying things in the Pokemon universe, and a bit of right-skew in the distribution. Out of curiosity, let's see them all together:
 
 ```{r heavy_flying}
@@ -450,7 +456,7 @@ Both of those high HP Pokemon appear to be Normal-type. Now, let's wrap up with 
 
 As discussed at points throughout this vignette, the API provides a "Special Attack" and "Special Defense" stat for each Pokemon. Special Attack and Special Defense are similar to Attack and Defense, with one slight difference. In addition to all Pokemon having a type, each "move" they can learn also has a type. The potential move types are the same as the potential Pokemon types. In Generation I (and Generations II and III; I believe this has changed as the franchise continues to expand), Water-, Grass-, Fire-, Ice-, Electric-, and Psychic-type moves are considered "special" type moves. As an example, the amount of damage a Pokemon can inflict with a Water-type move would be determined by its Special Attack, not its Attack. Similarly, the ability of its opponent to withstand the damage caused by the move would be determined by the opponent's Special Defense, not its Defense.
 
-In Generation I, however, separate stats for Special Attack and Special Defense did not exist. They were combined into a single stat that was simply called "Special." This caused issues with "balance" in the games, as a Pokemon with a high Special could both dole out heavy damage if using a special-type move, and similarly, do an admirable job of withstanding special type attacks. Splitting this stat into Special Attack and Special Defense helped correct the issue.
+In Generation I, however, separate stats for Special Attack and Special Defense did not exist. They were combined into a single stat that was simply called "Special." This caused issues with "balance" in the games, as a Pokemon with a high Special could both dole out heavy damage if using a special-type move, and similarly, do an admirable job of withstanding special type attacks. Splitting this stat into Special Attack and Special Defense helped correct the issue by creating the possibility of certain Pokemon being "good" at causing damage with Special-type moves (i.e., high Special Attack) while being susceptible to Special-type moves (i.e., low Special Defense), and vice versa.
 
 I am curious to see how each Generation I Pokemon was affected by this "split" of the Special stat. My idea for investigating this is as follows. Consider the following scatter plot, which shows Special Attack versus Special Defense (with a y=x line added for reference):
 
@@ -464,7 +470,7 @@ g + geom_abline(slope = 1, intercept = 0) +
   theme_classic()
 ```
 
-Assuming Special Attack and Special Defense are equally useful, a Pokemon can thought to be "stronger" in terms of Special stats the further away it is from the hypothetical (0,0) point. The figure above shows a nice split in the number of Pokemon "above" the reference line (i.e., better Special Defense) and "below" the reference line (i.e., better Special Attack). This is how the figure would look if considering the Generation I Special stat, wherein "Special Attack" and "Special Defense" are identical:
+Assuming Special Attack and Special Defense are equally useful, a Pokemon can thought to be "stronger" in terms of Special stats the further away it is from the hypothetical (0,0) point (i.e., the hypothetical state of having both an awful Special Attack and Special Defense). The figure above shows a nice split in the number of Pokemon "above" the reference line (i.e., better Special Defense) and "below" the reference line (i.e., better Special Attack). This is how the figure would look if considering the Generation I Special stat, wherein "Special Attack" and "Special Defense" are identical:
 
 ```{r gen1_special_scatter}
 g <- ggplot(my.data, aes(x=gen1.special, y = gen1.special, color = type1))
@@ -477,7 +483,6 @@ g + geom_abline(slope = 1, intercept = 0) +
 ```
 
 As expected, a not particularly illuminating visual of a straight y=x line. With some application of the Pythagorean theorem, we can calculate the "distance" each Pokemon resides from the hypothetical (0,0) under both the modern assignment of Pokemon stats, with separate Special Attack/Special Defense, and under the Generation I singular Special stat. In other words, after Generation I:
-
 
 $new.distance = \sqrt{special.attack^2 + special.defense^2}$
 
@@ -504,7 +509,6 @@ Let's take a quick look at some contingency tables. First, an overall view of ho
 
 ```{r delta_distance_table}
 table(my.data$status)
-
 ```
 
 It looks like roughly 1/3 of the original Pokemon were "improved," 1/3 were "weakened," and the remaining 1/3 were unchanged. Let's see how that balance holds up across type:
@@ -513,7 +517,7 @@ It looks like roughly 1/3 of the original Pokemon were "improved," 1/3 were "wea
 table(my.data$type1, my.data$status)
 ```
 
-It does not hold up. It looks like some types, such as Psychic, were overall weakened by this stat change. Others, like Normal, appear to have improvement. All Ghost-type Pokemon were weakened, whereas almost all Fighting-type Pokemon were improved. Let's see a bar graph to better understand the actual amount of change:
+It does not hold up. It looks like some types, such as Psychic, were overall weakened by this stat change. Others, like Normal, appear to have some improvement. All Ghost-type Pokemon were weakened, whereas almost all Fighting-type Pokemon were improved. Let's see a bar graph to better understand the actual amount of change:
 
 ```{r delta_distance_barplot}
 g <- ggplot(my.data, aes(x = type1, y = delta.distance, fill = type1))
@@ -544,10 +548,11 @@ g + geom_hline(yintercept = 0) +
   scale_x_discrete(guide = guide_axis(angle = 90)) + 
   scale_fill_manual(name = "Type", values = poke.colors) + 
   theme_classic() + 
-  theme(legend.position = "top" , axis.text.x = element_text(size = 3), axis.title.x = element_blank())
+  theme(legend.position = "top" , axis.text.x = element_text(size = 4), axis.title.x = element_blank())
 ```
 
-The graph shows Mewtwo being "weakened" the most of all. Two Fighting-type Pokemon, Hitmonchan and Hitmonlee, appeared to benefit greatly from the Special split. Overall, as the initial contingency table showed, there is a pretty nice division of "weakened" and "improved" Pokemon.
+The graph shows Mewtwo being "weakened" the most of all. Two Fighting-type Pokemon, Hitmonchan and Hitmonlee, appeared to benefit greatly from the Special split. Overall, as the initial contingency table showed, there is a pretty nice division of "weakened" and "improved" Pokemon, albeit inconsistent across primary typing.
 
 ## Conclusion
+
 Thus concludes the vignette. While it was interesting to look at some of the height, weight, and type distribution stuff, I had an honest curiosity about the base stats, especially as it relates to "splitting" the Special stat in later generations, and the subsequent effect on the overall "strength" of each Pokemon. I found it interesting to explore, and hopefully you found it somewhat interesting to read.
