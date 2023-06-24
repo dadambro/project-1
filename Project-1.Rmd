@@ -7,7 +7,6 @@ output:
     html_preview: false
     toc: true
     toc_depth: 4
-always_allow_html: true
 ---
 
 ```{r setup, include=FALSE}
@@ -81,9 +80,7 @@ return(poke.table)
 Lets test it out. My favorite Pokemon as a kid was Rhydon, so let’s make a query for Rhydon, using imperial units:
 
 ```{r lookup_example1}
-t1 <- pokemon.lookup("rhydon", unit = "imperial")
-
-paged_table(t1)
+pokemon.lookup("rhydon", unit = "imperial")
 ```
 
 Now lets demonstrate how it functions with using a numeric Pokemon ID and metric units. How about one of the 300 first Pokemon, selected randomly?
@@ -363,7 +360,7 @@ Let's use some histograms to get a better idea of how distributed these stats ar
 ```{r attack_histogram}
 g <- ggplot(my.data, aes(attack))
 
-g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Attack") + theme_classic()
+g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Attack") + ylab("Count") + theme_classic()
 
 ```
 
@@ -412,7 +409,7 @@ Let's check speed the same way. Histogram first:
 ```{r}
 g <- ggplot(my.data, aes(speed))
 
-g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Speed") + theme_classic()
+g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Speed") + ylab("Count") + theme_classic()
 ```
 
 Somewhat normal, with perhaps a touch of right skew.
@@ -438,7 +435,7 @@ Now for HP. Histogram:
 ```{r}
 g <- ggplot(my.data, aes(hp))
 
-g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base HP") + theme_classic()
+g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base HP") + ylab("Count") + theme_classic()
 ```
 
 Lots of skew. There appear to be a few Pokemon with a ton of base hp. Now the boxplots:
