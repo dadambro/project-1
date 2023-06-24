@@ -3,28 +3,19 @@ Project-1
 Damon D’Ambrosio
 2023-06-24
 
-- <a href="#requirements" id="toc-requirements">Requirements</a>
-- <a href="#api-interaction-custom-functions"
-  id="toc-api-interaction-custom-functions">API Interaction Custom
-  Functions</a>
-  - <a href="#pokemonlookup"
-    id="toc-pokemonlookup"><code>pokemon.lookup</code></a>
-  - <a href="#pokemonvector"
-    id="toc-pokemonvector"><code>pokemon.vector</code></a>
-  - <a href="#gen1correction"
-    id="toc-gen1correction"><code>gen1.correction</code></a>
-  - <a href="#pokemonbatchreport"
-    id="toc-pokemonbatchreport"><code>pokemon.batch.report</code></a>
-- <a href="#data-exploration" id="toc-data-exploration">Data
-  Exploration</a>
-  - <a href="#pokemon-type-frequency-breakdown"
-    id="toc-pokemon-type-frequency-breakdown">Pokemon type frequency
-    breakdown</a>
-  - <a href="#height-and-weight" id="toc-height-and-weight">Height and
-    Weight</a>
-  - <a href="#base-stats" id="toc-base-stats">Base Stats</a>
-    - <a href="#special-stats" id="toc-special-stats">Special Stats</a>
-- <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+- [Requirements](#requirements)
+- [API Interaction Custom Functions](#api-interaction-custom-functions)
+  - [`pokemon.lookup`](#pokemonlookup)
+  - [`pokemon.vector`](#pokemonvector)
+  - [`gen1.correction`](#gen1correction)
+  - [`pokemon.batch.report`](#pokemonbatchreport)
+- [Data Exploration](#data-exploration)
+  - [Pokemon type frequency
+    breakdown](#pokemon-type-frequency-breakdown)
+  - [Height and Weight](#height-and-weight)
+  - [Base Stats](#base-stats)
+    - [Special Stats](#special-stats)
+- [Conclusion](#conclusion)
 
 ## Requirements
 
@@ -128,7 +119,7 @@ pokemon.lookup(sample(1:300,1), unit = "metric")
     ## # A tibble: 1 × 12
     ##   name     id.number type1 type2 height weight    hp attack defense special.attack special.defense speed
     ##   <chr>        <int> <chr> <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
-    ## 1 Sceptile       254 grass <NA>     1.7   52.2    70     85      65            105              85   120
+    ## 1 Cloyster        91 water ice      1.5   132.    50     95     180             85              45    70
 
 The ultimate plan is to use `lapply` on `pokemon.lookup` to generate
 large reports for analysis. However, there is some functionality I would
@@ -185,10 +176,11 @@ gen3.list <- c("Treecko", "Jirachi")
 pokemon.vector(gen3.list)
 ```
 
-    ##   [1] 252 253 254 255 256 257 258 259 260 261 262 263 264 265 266 267 268 269 270 271 272 273 274 275 276 277 278 279 280 281 282 283 284 285 286
-    ##  [36] 287 288 289 290 291 292 293 294 295 296 297 298 299 300 301 302 303 304 305 306 307 308 309 310 311 312 313 314 315 316 317 318 319 320 321
-    ##  [71] 322 323 324 325 326 327 328 329 330 331 332 333 334 335 336 337 338 339 340 341 342 343 344 345 346 347 348 349 350 351 352 353 354 355 356
-    ## [106] 357 358 359 360 361 362 363 364 365 366 367 368 369 370 371 372 373 374 375 376 377 378 379 380 381 382 383 384 385
+    ##   [1] 252 253 254 255 256 257 258 259 260 261 262 263 264 265 266 267 268 269 270 271 272 273 274 275 276 277 278 279 280 281
+    ##  [31] 282 283 284 285 286 287 288 289 290 291 292 293 294 295 296 297 298 299 300 301 302 303 304 305 306 307 308 309 310 311
+    ##  [61] 312 313 314 315 316 317 318 319 320 321 322 323 324 325 326 327 328 329 330 331 332 333 334 335 336 337 338 339 340 341
+    ##  [91] 342 343 344 345 346 347 348 349 350 351 352 353 354 355 356 357 358 359 360 361 362 363 364 365 366 367 368 369 370 371
+    ## [121] 372 373 374 375 376 377 378 379 380 381 382 383 384 385
 
 One last helper function before we wrap things up…
 
@@ -279,11 +271,11 @@ c <- bind_rows(a,b)
 gen1.correction(c, delete.sp.att.def = TRUE)
 ```
 
-    ## Warning in gen1.correction(c, delete.sp.att.def = TRUE): Pokemon that did not exist in Generation I are in this report. The typing scheme in
-    ## this report is now inconsistent
+    ## Warning in gen1.correction(c, delete.sp.att.def = TRUE): Pokemon that did not exist in Generation I are in this report. The
+    ## typing scheme in this report is now inconsistent
 
-    ## Warning in gen1.correction(c, delete.sp.att.def = TRUE): Pokemon that did not exist in Generation I are in this report. Are you sure you wanted
-    ## to delete special attack and special defense?
+    ## Warning in gen1.correction(c, delete.sp.att.def = TRUE): Pokemon that did not exist in Generation I are in this report. Are
+    ## you sure you wanted to delete special attack and special defense?
 
     ## # A tibble: 2 × 11
     ##   name      id.number type1    type2 height weight    hp attack defense speed gen1.special
@@ -433,9 +425,9 @@ print(type1.table)
     ## 13 ghost        3       2  
     ## 14 ice          2       1.3
 
-As we can see, a whopping 28 Generation I Pokemon (\~18.5%) had Water as
+As we can see, a whopping 28 Generation I Pokemon (~18.5%) had Water as
 their primary type. Conversely, there were only 2 Pokemon with Ice as
-their primary type (\~1.3%). Let’s repeat the process for the secondary
+their primary type (~1.3%). Let’s repeat the process for the secondary
 type (`type2`):
 
 ``` r
