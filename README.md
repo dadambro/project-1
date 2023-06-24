@@ -100,13 +100,18 @@ Lets test it out. My favorite Pokemon as a kid was Rhydon, so let’s make
 a query for Rhydon, using imperial units:
 
 ``` r
-pokemon.lookup("rhydon", unit = "imperial")
+t1 <- pokemon.lookup("rhydon", unit = "imperial")
+
+paged_table(t1)
 ```
 
-    ## # A tibble: 1 × 12
-    ##   name   id.number type1  type2 height weight    hp attack defense special.attack special.defense speed
-    ##   <chr>      <int> <chr>  <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
-    ## 1 Rhydon       112 ground rock      75    265   105    130     120             45              45    40
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["id.number"],"name":[2],"type":["int"],"align":["right"]},{"label":["type1"],"name":[3],"type":["chr"],"align":["left"]},{"label":["type2"],"name":[4],"type":["chr"],"align":["left"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["hp"],"name":[7],"type":["int"],"align":["right"]},{"label":["attack"],"name":[8],"type":["int"],"align":["right"]},{"label":["defense"],"name":[9],"type":["int"],"align":["right"]},{"label":["special.attack"],"name":[10],"type":["int"],"align":["right"]},{"label":["special.defense"],"name":[11],"type":["int"],"align":["right"]},{"label":["speed"],"name":[12],"type":["int"],"align":["right"]}],"data":[{"1":"Rhydon","2":"112","3":"ground","4":"rock","5":"75","6":"265","7":"105","8":"130","9":"120","10":"45","11":"45","12":"40"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 Now lets demonstrate how it functions with using a numeric Pokemon ID
 and metric units. How about one of the 300 first Pokemon, selected
@@ -117,9 +122,9 @@ pokemon.lookup(sample(1:300,1), unit = "metric")
 ```
 
     ## # A tibble: 1 × 12
-    ##   name     id.number type1 type2 height weight    hp attack defense special.attack special.defense speed
-    ##   <chr>        <int> <chr> <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
-    ## 1 Cloyster        91 water ice      1.5   132.    50     95     180             85              45    70
+    ##   name      id.number type1  type2 height weight    hp attack defense special.attack special.defense speed
+    ##   <chr>         <int> <chr>  <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
+    ## 1 Nidoran-M        32 poison <NA>     0.5      9    46     57      40             40              40    50
 
 The ultimate plan is to use `lapply` on `pokemon.lookup` to generate
 large reports for analysis. However, there is some functionality I would
