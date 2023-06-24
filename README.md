@@ -3,6 +3,28 @@ Project-1
 Damon D’Ambrosio
 2023-06-23
 
+- <a href="#requirements" id="toc-requirements">Requirements</a>
+- <a href="#api-interaction-custom-functions"
+  id="toc-api-interaction-custom-functions">API Interaction Custom
+  Functions</a>
+  - <a href="#pokemonlookup"
+    id="toc-pokemonlookup"><code>pokemon.lookup</code></a>
+  - <a href="#pokemonvector"
+    id="toc-pokemonvector"><code>pokemon.vector</code></a>
+  - <a href="#gen1correction"
+    id="toc-gen1correction"><code>gen1.correction</code></a>
+  - <a href="#pokemonbatchreport"
+    id="toc-pokemonbatchreport"><code>pokemon.batch.report</code></a>
+- <a href="#data-exploration" id="toc-data-exploration">Data
+  Exploration</a>
+  - <a href="#pokemon-type-frequency-breakdown"
+    id="toc-pokemon-type-frequency-breakdown">Pokemon type frequency
+    breakdown</a>
+  - <a href="#height-and-weight" id="toc-height-and-weight">Height and
+    Weight</a>
+  - <a href="#base-stats" id="toc-base-stats">Base Stats</a>
+- <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+
 ## Requirements
 
 Packages required to run the functions are as follows:  
@@ -90,10 +112,9 @@ pokemon.lookup("rhydon", unit = "imperial")
 ```
 
     ## # A tibble: 1 × 12
-    ##   name   id.number type1 type2 height weight    hp attack defense special.attack
-    ##   <chr>      <int> <chr> <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>
-    ## 1 Rhydon       112 grou… rock      75    265   105    130     120             45
-    ## # ℹ 2 more variables: special.defense <int>, speed <int>
+    ##   name   id.number type1  type2 height weight    hp attack defense special.attack special.defense speed
+    ##   <chr>      <int> <chr>  <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
+    ## 1 Rhydon       112 ground rock      75    265   105    130     120             45              45    40
 
 Now lets demonstrate how it functions with using a numeric Pokemon ID
 and metric units. How about one of the 300 first Pokemon, selected
@@ -104,16 +125,15 @@ pokemon.lookup(sample(1:300,1), unit = "metric")
 ```
 
     ## # A tibble: 1 × 12
-    ##   name   id.number type1 type2 height weight    hp attack defense special.attack
-    ##   <chr>      <int> <chr> <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>
-    ## 1 Goldu…        55 water <NA>     1.7   76.6    80     82      78             95
-    ## # ℹ 2 more variables: special.defense <int>, speed <int>
+    ##   name   id.number type1    type2 height weight    hp attack defense special.attack special.defense speed
+    ##   <chr>      <int> <chr>    <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
+    ## 1 Elekid       239 electric <NA>     0.6   23.5    45     63      37             65              55    95
 
 The ultimate plan is to use `lapply` on `pokemon.lookup` to generate
 large reports for analysis. However, there is some functionality I would
 like to add. Namely, I do not have Pokemon ID numbers memorized. I do
 remember Pokemon names, however. As such, it would be nice if I could
-simply request all Pokemon between “Pokemon X” and “Pokemon Y” using
+simply request all Pokemon between “Pokemon A” and “Pokemon B” using
 names, and have the function handle looking up the ID, constructing the
 vector, then feeding it to `lapply`. The next custom function deals with
 that.
@@ -164,14 +184,10 @@ gen3.list <- c("Treecko", "Jirachi")
 pokemon.vector(gen3.list)
 ```
 
-    ##   [1] 252 253 254 255 256 257 258 259 260 261 262 263 264 265 266 267 268 269
-    ##  [19] 270 271 272 273 274 275 276 277 278 279 280 281 282 283 284 285 286 287
-    ##  [37] 288 289 290 291 292 293 294 295 296 297 298 299 300 301 302 303 304 305
-    ##  [55] 306 307 308 309 310 311 312 313 314 315 316 317 318 319 320 321 322 323
-    ##  [73] 324 325 326 327 328 329 330 331 332 333 334 335 336 337 338 339 340 341
-    ##  [91] 342 343 344 345 346 347 348 349 350 351 352 353 354 355 356 357 358 359
-    ## [109] 360 361 362 363 364 365 366 367 368 369 370 371 372 373 374 375 376 377
-    ## [127] 378 379 380 381 382 383 384 385
+    ##   [1] 252 253 254 255 256 257 258 259 260 261 262 263 264 265 266 267 268 269 270 271 272 273 274 275 276 277 278 279 280 281 282 283 284 285 286
+    ##  [36] 287 288 289 290 291 292 293 294 295 296 297 298 299 300 301 302 303 304 305 306 307 308 309 310 311 312 313 314 315 316 317 318 319 320 321
+    ##  [71] 322 323 324 325 326 327 328 329 330 331 332 333 334 335 336 337 338 339 340 341 342 343 344 345 346 347 348 349 350 351 352 353 354 355 356
+    ## [106] 357 358 359 360 361 362 363 364 365 366 367 368 369 370 371 372 373 374 375 376 377 378 379 380 381 382 383 384 385
 
 One last helper function before we wrap things up…
 
@@ -207,6 +223,10 @@ z <- x %>% filter(id.number > 151)
     y$type1[y$type1 == "fairy"] <- "normal" #Corrects Clefairy and Clefable to Gen I typing
     y$type2[y$type2 == "fairy"] <- NA       #Corrects Jigglypuff, Wigglytuff, and Mr-Mime to Gen I typing
     y$type2[y$type2 == "steel"] <- NA       #Corrects Magnemite and Magneton to Gen I typing
+    
+    if(max(x$id.number) > 151){
+      warning("Pokemon that did not exist in Generation I are in this report. The typing scheme in this report is now inconsistent")
+    }
   }
   
   if(isTRUE(add.special)){
@@ -231,13 +251,16 @@ return(new.report)
 
 `gen1.correction` will check that Pokemon belong to Generation I by
 making sure their ID number is 151 or lower. It will then change types
-if needed, and append the “Special” stat to that Pokemon’s record. The
-user can delete “Special Attack” and “Special Defense” if they wish to
-have a “pure” Generation I dataset. If Pokemon that did not exist in
-Generation I is included in the provided data set and the user specifies
-dropping “Special Attack” and “Special Defense,” a warning message will
-appear, as the resultant data set will have no “special” data associated
-with such records.
+if needed, and append the “Special” stat to that Pokemon’s record. If a
+type change is requested and Pokemon that did not exist in Generation I
+are included in the provided data set, a warning message will notify the
+user that the overall type scheme is inconsistent. The user can also
+delete “Special Attack” and “Special Defense” if they wish to have a
+“pure” Generation I dataset. If Pokemon that did not exist in Generation
+I is included in the provided data set and the user specifies dropping
+“Special Attack” and “Special Defense,” a warning message will appear,
+as the resultant data set will have no “special” data associated with
+such records.
 
 Here’s a quick example. Let’s build a simple data set containing two
 Pokemon: Magnemite, a Generation I Pokemon who would need a type
@@ -245,7 +268,7 @@ correction to remove its secondary “Steel” typing, and Scizor, a
 Generation II Pokemon who does not need a type correction, but would be
 inadvertently “corrected” if the function did not work as intended.
 We’ll also specify the function to delete Special Attack and Special
-Defense to see the warning message:
+Defense to see both potential warning messages:
 
 ``` r
 a <- pokemon.lookup("Magnemite")
@@ -255,16 +278,17 @@ c <- bind_rows(a,b)
 gen1.correction(c, delete.sp.att.def = TRUE)
 ```
 
-    ## Warning in gen1.correction(c, delete.sp.att.def = TRUE): Pokemon that did not
-    ## exist in Generation I are in this report. Are you sure you wanted to delete
-    ## special attack and special defense?
+    ## Warning in gen1.correction(c, delete.sp.att.def = TRUE): Pokemon that did not exist in Generation I are in this report. The typing scheme in
+    ## this report is now inconsistent
+
+    ## Warning in gen1.correction(c, delete.sp.att.def = TRUE): Pokemon that did not exist in Generation I are in this report. Are you sure you wanted
+    ## to delete special attack and special defense?
 
     ## # A tibble: 2 × 11
-    ##   name      id.number type1    type2 height weight    hp attack defense speed
-    ##   <chr>         <int> <chr>    <chr>  <int>  <int> <int>  <int>   <int> <int>
-    ## 1 Magnemite        81 electric <NA>       3     60    25     35      70    45
-    ## 2 Scizor          212 bug      steel     18   1180    70    130     100    65
-    ## # ℹ 1 more variable: gen1.special <dbl>
+    ##   name      id.number type1    type2 height weight    hp attack defense speed gen1.special
+    ##   <chr>         <int> <chr>    <chr>  <int>  <int> <int>  <int>   <int> <int>        <dbl>
+    ## 1 Magnemite        81 electric <NA>       3     60    25     35      70    45           95
+    ## 2 Scizor          212 bug      steel     18   1180    70    130     100    65           NA
 
 As we can see, Magnemite had its secondary Steel type assigned to NA,
 while Scizor retained its secondary Steel type. A warning message was
@@ -299,12 +323,15 @@ pokemon.batch.report <- function(x, gen1.correct = FALSE, ...){
 ```
 
 Now to use `pokemon.batch.report` to generate some data for exploratory
-analysis. As a millenial approaching middle age, the Generation I
+analysis. As a millennial approaching middle age, the Generation I
 Pokemon and the games they appeared in are nearest and dearest to my
 heart. As such, I want the original 151 Pokemon (Bulbasaur through Mew).
-I will request imperial units, and have the data “corrected” to reflect
-Generation I typing. For the part of the analysis, I would like to
-compare how the change from a “special” stat to a separate “special
+While one *could* supply `pokemon.batch.report` with a vector like
+`x <- 1:151` to generate these data, I will supply the two Pokemon names
+to take advantage of the `pokemon.vector` helper function. I will
+request imperial units, and have the data “corrected” to reflect
+Generation I typing. For part of the exploratory analysis, I would like
+to compare how the change from a “special” stat to a separate “special
 attack” and “special defense” impacted the overall abilities of each
 Pokemon. As such, I will retain “special attack” and “special defense”
 when applying the Generation I correction.
@@ -317,20 +344,19 @@ print(my.data)
 ```
 
     ## # A tibble: 151 × 13
-    ##    name  id.number type1 type2 height weight    hp attack defense special.attack
-    ##    <chr>     <int> <chr> <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>
-    ##  1 Bulb…         1 grass pois…     28     15    45     49      49             65
-    ##  2 Ivys…         2 grass pois…     39     29    60     62      63             80
-    ##  3 Venu…         3 grass pois…     79    220    80     82      83            100
-    ##  4 Char…         4 fire  <NA>      24     19    39     52      43             60
-    ##  5 Char…         5 fire  <NA>      43     42    58     64      58             80
-    ##  6 Char…         6 fire  flyi…     67    200    78     84      78            109
-    ##  7 Squi…         7 water <NA>      20     20    44     48      65             50
-    ##  8 Wart…         8 water <NA>      39     50    59     63      80             65
-    ##  9 Blas…         9 water <NA>      63    188    79     83     100             85
-    ## 10 Cate…        10 bug   <NA>      12      6    45     30      35             20
+    ##    name       id.number type1 type2  height weight    hp attack defense special.attack special.defense speed gen1.special
+    ##    <chr>          <int> <chr> <chr>   <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>        <dbl>
+    ##  1 Bulbasaur          1 grass poison     28     15    45     49      49             65              65    45           65
+    ##  2 Ivysaur            2 grass poison     39     29    60     62      63             80              80    60           80
+    ##  3 Venusaur           3 grass poison     79    220    80     82      83            100             100    80          100
+    ##  4 Charmander         4 fire  <NA>       24     19    39     52      43             60              50    65           50
+    ##  5 Charmeleon         5 fire  <NA>       43     42    58     64      58             80              65    80           65
+    ##  6 Charizard          6 fire  flying     67    200    78     84      78            109              85   100           85
+    ##  7 Squirtle           7 water <NA>       20     20    44     48      65             50              64    43           50
+    ##  8 Wartortle          8 water <NA>       39     50    59     63      80             65              80    58           65
+    ##  9 Blastoise          9 water <NA>       63    188    79     83     100             85             105    78           85
+    ## 10 Caterpie          10 bug   <NA>       12      6    45     30      35             20              20    45           20
     ## # ℹ 141 more rows
-    ## # ℹ 3 more variables: special.defense <int>, speed <int>, gen1.special <dbl>
 
 ## Data Exploration
 
@@ -485,7 +511,9 @@ were generally heavier, and some of the Flying-type Pokemon were
 lighter. Let’s see if there’s any truth to that:
 
 ``` r
-my.data %>% group_by(type1) %>% summarize(average = mean(weight), median = median(weight), min = min(weight), max = max(weight), sd = sd(weight)) %>% arrange(desc(average))
+my.data %>% group_by(type1) %>% 
+  summarize(average = mean(weight), median = median(weight), min = min(weight), max = max(weight), sd = sd(weight)) %>% 
+  arrange(desc(average))
 ```
 
     ## # A tibble: 14 × 6
@@ -531,7 +559,9 @@ Generation 1. Let’s do another summary to see how the data for Pokemon
 with a secondary Flying type shakes out:
 
 ``` r
-my.data %>% group_by(type2) %>% summarize(average = mean(weight), median = median(weight), min = min(weight), max = max(weight), sd = sd(weight)) %>% arrange(desc(average))
+my.data %>% group_by(type2) %>% 
+  summarize(average = mean(weight), median = median(weight), min = min(weight), max = max(weight), sd = sd(weight)) %>%
+  arrange(desc(average))
 ```
 
     ## # A tibble: 10 × 6
@@ -589,7 +619,9 @@ Let’s take a quick look at height. I really have no idea what, if any,
 type I would expect to be taller:
 
 ``` r
-my.data %>% group_by(type1) %>% summarize(average = mean(height), median = median(height), min = min(height), max = max(height), sd = sd(height)) %>% arrange(desc(average))
+my.data %>% group_by(type1) %>% 
+  summarize(average = mean(height), median = median(height), min = min(height), max = max(height), sd = sd(height)) %>% 
+  arrange(desc(average))
 ```
 
     ## # A tibble: 14 × 6
@@ -638,36 +670,36 @@ weight business; let’s get to the interesting data…
 
 ### Base Stats
 
-The remainder of the data queried by the `pokemon.batch.report` function
-are the “base stats” of each Pokemon species. Briefly, the whole purpose
-of the Pokemon games is to capture Pokemon, train them, and then use
-them to battle other Pokemon. Each of these base stats gives an idea of
-how proficient a Pokemon is at a particular aspect that can be used in
-battle. Although these stats will increase as the Pokemon is trained,
-the base stats give a general idea of how one Pokemon will compare to
-another (i.e., a Pokemon with a higher base speed stat will be faster
-than another with a lower base speed stat, all other things considered).
-A quick overview of each stat:
+The remainder of the data returned by the `pokemon.batch.report`
+function are the “base stats” of each Pokemon species. Briefly, the
+whole purpose of the Pokemon games is to capture Pokemon, train them,
+and then use them to battle other Pokemon. Each of these base stats
+gives an idea of how proficient a Pokemon is at a particular aspect that
+can be used in battle. Although these stats will increase as the Pokemon
+is trained, the base stats give a general idea of how one Pokemon will
+compare to another (i.e., a Pokemon with a higher base speed stat will
+be faster than another with a lower base speed stat, all other things
+considered). A quick overview of each stat:
 
-- *hp* is how many “hit points” a Pokemon has; hit points are depleted
+- **HP** is how many “hit points” a Pokemon has; hit points are depleted
   when attacked, so a Pokemon with a higher hp stat can withstand more
   damage.
-- *Attack* is how much damage a Pokemon will dole out when attacking,
+- **Attack** is how much damage a Pokemon will dole out when attacking,
   assuming the attack is of a certain type
-- *Defense* is how much a Pokemon can reduce the damage it receives when
-  attacked, assuming the attack is of a certain type
-- *Speed* is how fast a Pokemon is; the Pokemon games are turn-based,
+- **Defense** is how much a Pokemon can reduce the damage it receives
+  when attacked, assuming the attack is of a certain type
+- **Speed** is how fast a Pokemon is; the Pokemon games are turn-based,
   and faster Pokemon usually attack first
-- *Special/Special Attack/Special Defense* will be discussed a little
+- **Special/Special Attack/Special Defense** will be discussed a little
   later in the vignette
 
 Let’s use some histograms to get a better idea of how distributed these
-stats are among the 151 Generation I Pokemon. First, attack:
+stats are among the 151 Generation I Pokemon. First, Attack:
 
 ``` r
 g <- ggplot(my.data, aes(attack))
 
-g + geom_histogram(binwidth = 10) + theme_classic()
+g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Attack") + theme_classic()
 ```
 
 ![](README_files/figure-gfm/attack_histogram-1.png)<!-- -->
@@ -676,11 +708,17 @@ Attack looks like it has a fairly normal distribution, maybe with a hint
 of bimodality. Let’s check it by primary Pokemon type with a boxplot:
 
 ``` r
+#Create an array of colors that roughly correspond to the colors associated with types in the games
 poke.colors <- c('olivedrab3', 'lightblue4', 'yellow', 'sienna', 'red', 'slateblue4', 'green3', 'tan', 'slategray1', 'ivory2', 'mediumpurple1', 'mediumorchid2', 'wheat4', 'steelblue2')
 
 g <- ggplot(my.data, aes(x=type1, y = attack, fill = type1))
 
-g + geom_boxplot() + xlab("Type") + ylab("Base Attack") + scale_x_discrete(guide = guide_axis(angle = 45)) + theme_classic() + scale_fill_manual(values = poke.colors)
+g + geom_boxplot() + 
+  xlab("Type") + ylab("Base Attack") + 
+  scale_x_discrete(guide = guide_axis(angle = 45)) + 
+  theme_classic() + 
+  scale_fill_manual(values = poke.colors) +
+  theme(legend.position = "none")
 ```
 
 ![](README_files/figure-gfm/attack_boxplot-1.png)<!-- -->
@@ -697,10 +735,10 @@ Let’s look at defense. First, the overall histogram:
 ``` r
 g <- ggplot(my.data, aes(defense))
 
-g + geom_histogram(binwidth = 10) + theme_classic()
+g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Defense") + ylab("Count") + theme_classic()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-69-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
 
 Looks like some right skew, especially when compared to the Attack
 graph. Let’s check the boxplot:
@@ -708,10 +746,14 @@ graph. Let’s check the boxplot:
 ``` r
 g <- ggplot(my.data, aes(x=type1, y = defense, fill = type1))
 
-g + geom_boxplot() + xlab("Type") + ylab("Base Defense") + scale_x_discrete(guide = guide_axis(angle = 45)) + theme_classic() + scale_fill_manual(values = poke.colors)
+g + geom_boxplot() + xlab("Type") + ylab("Base Defense") + 
+  scale_x_discrete(guide = guide_axis(angle = 45)) + 
+  theme_classic() + 
+  scale_fill_manual(values = poke.colors) + 
+  theme(legend.position = "none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-70-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
 
 Here, we see Rock-type Pokemon, and Ground-type to a lesser extent,
 stand out as those with the highest Defense stat. We do see potential
@@ -722,30 +764,41 @@ Let’s check speed the same way. Histogram first:
 ``` r
 g <- ggplot(my.data, aes(speed))
 
-g + geom_histogram(binwidth = 10) + theme_classic()
+g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Speed") + theme_classic()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-71-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
+
+Somewhat normal, with perhaps a touch of right skew.
 
 Now boxplots:
 
 ``` r
 g <- ggplot(my.data, aes(x=type1, y = speed, fill = type1))
 
-g + geom_boxplot() + scale_x_discrete(guide = guide_axis(angle = 45)) + theme_classic() + scale_fill_manual(values = poke.colors)
+g + geom_boxplot() + 
+  xlab("Type") + 
+  ylab("Base Speed") +
+  scale_x_discrete(guide = guide_axis(angle = 45)) + 
+  theme_classic() + 
+  scale_fill_manual(values = poke.colors) + 
+  theme(legend.position = "none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-72-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-43-1.png)<!-- -->
 
-Now for hp. Histogram:
+It appears Electric- and Psychic-type Pokemon are fast, and there is one
+really slow Water-type Pokemon.
+
+Now for HP. Histogram:
 
 ``` r
 g <- ggplot(my.data, aes(hp))
 
-g + geom_histogram(binwidth = 10) + theme_classic()
+g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base HP") + theme_classic()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-73-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-44-1.png)<!-- -->
 
 Lots of skew. There appear to be a few Pokemon with a ton of base hp.
 Now the boxplots:
@@ -753,12 +806,16 @@ Now the boxplots:
 ``` r
 g <- ggplot(my.data, aes(x=type1, y = hp, fill = type1))
 
-g + geom_boxplot() + xlab("Type") + ylab("Base HP") + scale_x_discrete(guide = guide_axis(angle = 45)) + scale_fill_manual(values = poke.colors) + theme_classic() + theme(legend.position = "none")
+g + geom_boxplot() + xlab("Type") + ylab("Base HP") + 
+  scale_x_discrete(guide = guide_axis(angle = 45)) + 
+  scale_fill_manual(values = poke.colors) + 
+  theme_classic() + 
+  theme(legend.position = "none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-74-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-45-1.png)<!-- -->
 
-Both of those high hp Pokemon appear to be Normal-type. Now, let’s wrap
+Both of those high HP Pokemon appear to be Normal-type. Now, let’s wrap
 up with a brief look and discussion of the “Special” stats.
 
 #### Special Stats
@@ -781,9 +838,9 @@ In Generation I, however, separate stats for Special Attack and Special
 Defense did not exist. They were combined into a single stat that was
 simply called “Special.” This caused issues with “balance” in the games,
 as a Pokemon with a high Special could both dole out heavy damage if
-using a special-type move, and similarly, do a great job withstanding
-special type attacks. Splitting this stat into Special Attack and
-Special Defense helped correct the issue.
+using a special-type move, and similarly, do an admirable job of
+withstanding special type attacks. Splitting this stat into Special
+Attack and Special Defense helped correct the issue.
 
 I am curious to see how each Generation I Pokemon was affected by this
 “split” of the Special stat. My idea for investigating this is as
@@ -793,35 +850,48 @@ versus Special Defense (with a y=x line added for reference):
 ``` r
 g <- ggplot(my.data, aes(x=special.attack, y = special.defense, color = type1))
 
-g + geom_abline(slope = 1, intercept = 0) + geom_point() + xlab("Special Attack") + ylab("Special Defense") + scale_color_manual(values = poke.colors) + theme_classic()
+g + geom_abline(slope = 1, intercept = 0) + 
+  geom_point() + 
+  xlab("Special Attack") + ylab("Special Defense") + 
+  scale_color_manual(name = "Type", values = poke.colors) + 
+  theme_classic()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-75-1.png)<!-- -->
+![](README_files/figure-gfm/split_special_scatter-1.png)<!-- -->
 
 Assuming Special Attack and Special Defense are equally useful, a
 Pokemon can thought to be “stronger” in terms of Special stats the
-further away it is from the hypothetical (0,0) point. This is how the
-figure would look if considering the Generation I Special stat, wherein
-“Special Attack” and “Special Defense” are identical:
+further away it is from the hypothetical (0,0) point. The figure above
+shows a nice split in the number of Pokemon “above” the reference line
+(i.e., better Special Defense) and “below” the reference line (i.e.,
+better Special Attack). This is how the figure would look if considering
+the Generation I Special stat, wherein “Special Attack” and “Special
+Defense” are identical:
 
 ``` r
 g <- ggplot(my.data, aes(x=gen1.special, y = gen1.special, color = type1))
 
-g + geom_abline(slope = 1, intercept = 0) + geom_point() + scale_color_manual(values = poke.colors) + theme_classic()
+g + geom_abline(slope = 1, intercept = 0) + 
+  geom_point() + 
+  xlab("Gen 1 'Special Attack'") + ylab("Gen 1 'Special Defense'") + 
+  scale_color_manual(name = "Type", values = poke.colors) + 
+  theme_classic()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-76-1.png)<!-- -->
+![](README_files/figure-gfm/gen1_special_scatter-1.png)<!-- -->
 
-As expected, a straight y=x line. With some application of the
-Pythagorean theorem, we can calculate the “distance” each Pokemon
-resides from the hypothetical (0,0) under both the modern assignment of
-Pokemon stats, with separate Special Attack/Special Defense, and under
-the Generation I singular Special stat. In other words, after Generation
-I:
+As expected, a not particularly illuminating visual of a straight y=x
+line. With some application of the Pythagorean theorem, we can calculate
+the “distance” each Pokemon resides from the hypothetical (0,0) under
+both the modern assignment of Pokemon stats, with separate Special
+Attack/Special Defense, and under the Generation I singular Special
+stat. In other words, after Generation I:
 
 $$
 new.distance = \sqrt{special.attack^2 + special.defense^2}
-$$ And within Generation I:
+$$
+
+And within Generation I:
 
 $$
 old.distance = \sqrt{2(special^2)}
@@ -860,7 +930,7 @@ table(my.data$status)
 
 It looks like roughly 1/3 of the original Pokemon were “improved,” 1/3
 were “weakened,” and the remaining 1/3 were unchanged. Let’s see how
-that holds up across type:
+that balance holds up across type:
 
 ``` r
 table(my.data$type1, my.data$status)
@@ -885,20 +955,71 @@ table(my.data$type1, my.data$status)
 
 It does not hold up. It looks like some types, such as Psychic, were
 overall weakened by this stat change. Others, like Normal, appear to
-have improvement. Let’s see a bar graph to better understand the actual
-amount of change:
+have improvement. All Ghost-type Pokemon were weakened, whereas almost
+all Fighting-type Pokemon were improved. Let’s see a bar graph to better
+understand the actual amount of change:
 
 ``` r
 g <- ggplot(my.data, aes(x = type1, y = delta.distance, fill = type1))
 
-g + geom_hline(yintercept = 0) + geom_bar(stat = "summary", fun = "mean") + xlab("Type") + ylab("Change after Special stat split") + scale_x_discrete(guide = guide_axis(angle = 45)) + scale_fill_manual(values = poke.colors) + theme_classic() + theme(legend.position = "none")
+g + geom_hline(yintercept = 0) + 
+  geom_bar(stat = "summary", fun = "mean", color = "black") + 
+  xlab("Type") + ylab("Mean Change after Special Stat Split") + 
+  scale_x_discrete(guide = guide_axis(angle = 45)) + 
+  scale_fill_manual(values = poke.colors) + 
+  theme_classic() + 
+  theme(legend.position = "none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-81-1.png)<!-- -->
+![](README_files/figure-gfm/delta_distance_barplot-1.png)<!-- -->
 
 From this graph, it appears Ghost- and Psychic-type Pokemon were pretty
 weakened by the stat split. Conversely, Fighting-type Pokemon saw great
-improvement.
+improvement. Dragon- and Ground-type Pokemon appear to be unaffected by
+the split. I’m curious as to which specific Pokemon were most affected:
+
+``` r
+my.data %>% arrange(delta.distance) %>% select(1:4, 16)
+```
+
+    ## # A tibble: 151 × 5
+    ##    name      id.number type1    type2   delta.distance
+    ##    <chr>         <int> <chr>    <chr>            <dbl>
+    ##  1 Mewtwo          150 psychic  <NA>             -39.4
+    ##  2 Chansey         113 normal   <NA>             -37.8
+    ##  3 Gastly           92 ghost    poison           -35.5
+    ##  4 Haunter          93 ghost    poison           -35.2
+    ##  5 Gengar           94 ghost    poison           -33.8
+    ##  6 Tangela         114 grass    <NA>             -33.7
+    ##  7 Exeggutor       103 grass    psychic          -31.0
+    ##  8 Kadabra          64 psychic  <NA>             -30.8
+    ##  9 Magneton         82 electric <NA>             -30.8
+    ## 10 Abra             63 psychic  <NA>             -30.0
+    ## # ℹ 141 more rows
+
+Ah, Mewtwo. He was (and still is, as far as I know) the “strongest”
+Generation I Pokemon, so he could afford to be “weakened” a bit. Here’s
+how each Generation I Pokemon changed as a result of the Special split:
+
+``` r
+g <- ggplot(my.data, aes(x = name, y = delta.distance, fill = type1))
+
+g + geom_hline(yintercept = 0) + 
+  geom_bar(stat = "identity", position = position_dodge(.2)) + 
+  ylab("Change after Special Stat Split") + 
+  scale_x_discrete(guide = guide_axis(angle = 90)) + 
+  scale_fill_manual(name = "Type", values = poke.colors) + 
+  theme_classic() + 
+  theme(legend.position = "top" , axis.text.x = element_text(size = 5), axis.title.x = element_blank())
+```
+
+![](README_files/figure-gfm/unnamed-chunk-46-1.png)<!-- -->
+
+The graph shows Mewtwo being “weakened” the most of all. Two
+Fighting-type Pokemon, Hitmonchan and Hitmonlee, appeared to benefit
+greatly from the Special split. Overall, as the initial contingency
+table showed, there is a pretty nice division of “weakened” and
+“improved” Pokemon.
 
 ## Conclusion
 
@@ -906,5 +1027,5 @@ Thus concludes the vignette. While it was interesting to look at some of
 the height, weight, and type distribution stuff, I had an honest
 curiosity about the base stats, especially as it relates to “splitting”
 the Special stat in later generations, and the subsequent effect on the
-overall “strength” of each Pokemon. I found it interesting to figure
-out, and hopefully you found it somewhat interesting to read.
+overall “strength” of each Pokemon. I found it interesting to explore,
+and hopefully you found it somewhat interesting to read.
