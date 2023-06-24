@@ -111,10 +111,13 @@ a query for Rhydon, using imperial units:
 pokemon.lookup("rhydon", unit = "imperial")
 ```
 
-    ## # A tibble: 1 × 12
-    ##   name   id.number type1  type2 height weight    hp attack defense special.attack special.defense speed
-    ##   <chr>      <int> <chr>  <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
-    ## 1 Rhydon       112 ground rock      75    265   105    130     120             45              45    40
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["id.number"],"name":[2],"type":["int"],"align":["right"]},{"label":["type1"],"name":[3],"type":["chr"],"align":["left"]},{"label":["type2"],"name":[4],"type":["chr"],"align":["left"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["hp"],"name":[7],"type":["int"],"align":["right"]},{"label":["attack"],"name":[8],"type":["int"],"align":["right"]},{"label":["defense"],"name":[9],"type":["int"],"align":["right"]},{"label":["special.attack"],"name":[10],"type":["int"],"align":["right"]},{"label":["special.defense"],"name":[11],"type":["int"],"align":["right"]},{"label":["speed"],"name":[12],"type":["int"],"align":["right"]}],"data":[{"1":"Rhydon","2":"112","3":"ground","4":"rock","5":"75","6":"265","7":"105","8":"130","9":"120","10":"45","11":"45","12":"40"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 Now lets demonstrate how it functions with using a numeric Pokemon ID
 and metric units. How about one of the 300 first Pokemon, selected
@@ -124,10 +127,13 @@ randomly?
 pokemon.lookup(sample(1:300,1), unit = "metric")
 ```
 
-    ## # A tibble: 1 × 12
-    ##   name   id.number type1    type2 height weight    hp attack defense special.attack special.defense speed
-    ##   <chr>      <int> <chr>    <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
-    ## 1 Elekid       239 electric <NA>     0.6   23.5    45     63      37             65              55    95
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["id.number"],"name":[2],"type":["int"],"align":["right"]},{"label":["type1"],"name":[3],"type":["chr"],"align":["left"]},{"label":["type2"],"name":[4],"type":["chr"],"align":["left"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["hp"],"name":[7],"type":["int"],"align":["right"]},{"label":["attack"],"name":[8],"type":["int"],"align":["right"]},{"label":["defense"],"name":[9],"type":["int"],"align":["right"]},{"label":["special.attack"],"name":[10],"type":["int"],"align":["right"]},{"label":["special.defense"],"name":[11],"type":["int"],"align":["right"]},{"label":["speed"],"name":[12],"type":["int"],"align":["right"]}],"data":[{"1":"Masquerain","2":"284","3":"bug","4":"flying","5":"0.8","6":"3.6","7":"70","8":"60","9":"62","10":"100","11":"82","12":"80"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 The ultimate plan is to use `lapply` on `pokemon.lookup` to generate
 large reports for analysis. However, there is some functionality I would
@@ -284,11 +290,13 @@ gen1.correction(c, delete.sp.att.def = TRUE)
     ## Warning in gen1.correction(c, delete.sp.att.def = TRUE): Pokemon that did not exist in Generation I are in this report. Are you sure you wanted
     ## to delete special attack and special defense?
 
-    ## # A tibble: 2 × 11
-    ##   name      id.number type1    type2 height weight    hp attack defense speed gen1.special
-    ##   <chr>         <int> <chr>    <chr>  <int>  <int> <int>  <int>   <int> <int>        <dbl>
-    ## 1 Magnemite        81 electric <NA>       3     60    25     35      70    45           95
-    ## 2 Scizor          212 bug      steel     18   1180    70    130     100    65           NA
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["id.number"],"name":[2],"type":["int"],"align":["right"]},{"label":["type1"],"name":[3],"type":["chr"],"align":["left"]},{"label":["type2"],"name":[4],"type":["chr"],"align":["left"]},{"label":["height"],"name":[5],"type":["int"],"align":["right"]},{"label":["weight"],"name":[6],"type":["int"],"align":["right"]},{"label":["hp"],"name":[7],"type":["int"],"align":["right"]},{"label":["attack"],"name":[8],"type":["int"],"align":["right"]},{"label":["defense"],"name":[9],"type":["int"],"align":["right"]},{"label":["speed"],"name":[10],"type":["int"],"align":["right"]},{"label":["gen1.special"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"Magnemite","2":"81","3":"electric","4":"NA","5":"3","6":"60","7":"25","8":"35","9":"70","10":"45","11":"95"},{"1":"Scizor","2":"212","3":"bug","4":"steel","5":"18","6":"1180","7":"70","8":"130","9":"100","10":"65","11":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 As we can see, Magnemite had its secondary Steel type assigned to NA,
 while Scizor retained its secondary Steel type. A warning message was
@@ -516,23 +524,13 @@ my.data %>% group_by(type1) %>%
   arrange(desc(average))
 ```
 
-    ## # A tibble: 14 × 6
-    ##    type1    average median   min   max    sd
-    ##    <chr>      <dbl>  <dbl> <dbl> <dbl> <dbl>
-    ##  1 rock       193     89      17   661 224. 
-    ##  2 dragon     169.    36       7   463 255. 
-    ##  3 water      128.    82.5     9   518 130. 
-    ##  4 fighting   120.   110      43   287  82.7
-    ##  5 psychic    114.   113       9   269  80.2
-    ##  6 ice        106    106      90   122  22.6
-    ##  7 fire       106.    60.5    19   342  98.5
-    ##  8 normal     106.    68.5     4  1014 202. 
-    ##  9 ground      99.8   69       2   265 104. 
-    ## 10 electric    70     66      13   147  51.1
-    ## 11 grass       61.8   24       6   265  87.1
-    ## 12 poison      60.1   43.5     2   143  51.7
-    ## 13 bug         50.7   46.5     6   123  41.3
-    ## 14 ghost       29.7    0       0    89  51.4
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["type1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["average"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["median"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["min"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["max"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["sd"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"rock","2":"193.00000","3":"89.0","4":"17","5":"661","6":"224.44654"},{"1":"dragon","2":"168.66667","3":"36.0","4":"7","5":"463","6":"255.31223"},{"1":"water","2":"127.71429","3":"82.5","4":"9","5":"518","6":"130.34054"},{"1":"fighting","2":"119.85714","3":"110.0","4":"43","5":"287","6":"82.65274"},{"1":"psychic","2":"113.75000","3":"113.0","4":"9","5":"269","6":"80.15120"},{"1":"ice","2":"106.00000","3":"106.0","4":"90","5":"122","6":"22.62742"},{"1":"fire","2":"105.91667","3":"60.5","4":"19","5":"342","6":"98.50838"},{"1":"normal","2":"105.50000","3":"68.5","4":"4","5":"1014","6":"202.35806"},{"1":"ground","2":"99.75000","3":"69.0","4":"2","5":"265","6":"103.76588"},{"1":"electric","2":"70.00000","3":"66.0","4":"13","5":"147","6":"51.09305"},{"1":"grass","2":"61.75000","3":"24.0","4":"6","5":"265","6":"87.13534"},{"1":"poison","2":"60.14286","3":"43.5","4":"2","5":"143","6":"51.68225"},{"1":"bug","2":"50.66667","3":"46.5","4":"6","5":"123","6":"41.33309"},{"1":"ghost","2":"29.66667","3":"0.0","4":"0","5":"89","6":"51.38417"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 It appears Rock-type Pokemon are indeed the heaviest on average, with an
 average weight of 193 pounds. Ground-type Pokemon, however, are well
@@ -547,10 +545,13 @@ is:
 my.data %>% filter(type1 == "ground") %>% filter(weight == 2) %>% select(1:6)
 ```
 
-    ## # A tibble: 1 × 6
-    ##   name    id.number type1  type2 height weight
-    ##   <chr>       <int> <chr>  <chr>  <dbl>  <dbl>
-    ## 1 Diglett        50 ground <NA>       8      2
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["id.number"],"name":[2],"type":["int"],"align":["right"]},{"label":["type1"],"name":[3],"type":["chr"],"align":["left"]},{"label":["type2"],"name":[4],"type":["chr"],"align":["left"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"Diglett","2":"50","3":"ground","4":"NA","5":"8","6":"2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 Ah, yes, Diglett. I remember that being a small Pokemon.
 
@@ -564,19 +565,13 @@ my.data %>% group_by(type2) %>%
   arrange(desc(average))
 ```
 
-    ## # A tibble: 10 × 6
-    ##    type2    average median   min   max     sd
-    ##    <chr>      <dbl>  <dbl> <dbl> <dbl>  <dbl>
-    ##  1 ice        347.   292     265   485 120.  
-    ##  2 ground     278    184      44   661 236.  
-    ##  3 rock       260.   260.    254   265   7.78
-    ##  4 flying     135    116       4   518 137.  
-    ##  5 psychic    132.   132.      6   265  91.4 
-    ##  6 fighting   119    119     119   119  NA   
-    ##  7 <NA>        83.3   55       2  1014 121.  
-    ##  8 water       52     51      17    89  36.3 
-    ##  9 poison      46.9   28       0   220  54.7 
-    ## 10 grass       38.5   38.5    12    65  37.5
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["type2"],"name":[1],"type":["chr"],"align":["left"]},{"label":["average"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["median"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["min"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["max"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["sd"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"ice","2":"347.33333","3":"292.0","4":"265","5":"485","6":"119.984721"},{"1":"ground","2":"278.00000","3":"184.0","4":"44","5":"661","6":"236.252407"},{"1":"rock","2":"259.50000","3":"259.5","4":"254","5":"265","6":"7.778175"},{"1":"flying","2":"135.00000","3":"116.0","4":"4","5":"518","6":"136.834044"},{"1":"psychic","2":"131.50000","3":"131.5","4":"6","5":"265","6":"91.382165"},{"1":"fighting","2":"119.00000","3":"119.0","4":"119","5":"119","6":"NA"},{"1":"NA","2":"83.29213","3":"55.0","4":"2","5":"1014","6":"120.674261"},{"1":"water","2":"52.00000","3":"51.0","4":"17","5":"89","6":"36.276714"},{"1":"poison","2":"46.89474","3":"28.0","4":"0","5":"220","6":"54.651314"},{"1":"grass","2":"38.50000","3":"38.5","4":"12","5":"65","6":"37.476659"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 Interesting. Flying-type Pokemon shake out in the middle of the pack.
 Apparently there are some very heavy flying things in the Pokemon
@@ -587,28 +582,13 @@ let’s see them all together:
 my.data %>% filter(type2 == "flying") %>% arrange(desc(weight)) %>% select(1:6)
 ```
 
-    ## # A tibble: 19 × 6
-    ##    name       id.number type1    type2  height weight
-    ##    <chr>          <int> <chr>    <chr>   <dbl>  <dbl>
-    ##  1 Gyarados         130 water    flying    256    518
-    ##  2 Dragonite        149 dragon   flying     87    463
-    ##  3 Charizard          6 fire     flying     67    200
-    ##  4 Dodrio            85 normal   flying     71    188
-    ##  5 Moltres          146 fire     flying     79    132
-    ##  6 Aerodactyl       142 rock     flying     71    130
-    ##  7 Scyther          123 bug      flying     59    123
-    ##  8 Articuno         144 ice      flying     67    122
-    ##  9 Golbat            42 poison   flying     63    121
-    ## 10 Zapdos           145 electric flying     63    116
-    ## 11 Pidgeot           18 normal   flying     59     87
-    ## 12 Doduo             84 normal   flying     55     86
-    ## 13 Fearow            22 normal   flying     47     84
-    ## 14 Butterfree        12 bug      flying     43     71
-    ## 15 Pidgeotto         17 normal   flying     43     66
-    ## 16 Farfetchd         83 normal   flying     31     33
-    ## 17 Zubat             41 poison   flying     31     17
-    ## 18 Pidgey            16 normal   flying     12      4
-    ## 19 Spearow           21 normal   flying     12      4
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["id.number"],"name":[2],"type":["int"],"align":["right"]},{"label":["type1"],"name":[3],"type":["chr"],"align":["left"]},{"label":["type2"],"name":[4],"type":["chr"],"align":["left"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"Gyarados","2":"130","3":"water","4":"flying","5":"256","6":"518"},{"1":"Dragonite","2":"149","3":"dragon","4":"flying","5":"87","6":"463"},{"1":"Charizard","2":"6","3":"fire","4":"flying","5":"67","6":"200"},{"1":"Dodrio","2":"85","3":"normal","4":"flying","5":"71","6":"188"},{"1":"Moltres","2":"146","3":"fire","4":"flying","5":"79","6":"132"},{"1":"Aerodactyl","2":"142","3":"rock","4":"flying","5":"71","6":"130"},{"1":"Scyther","2":"123","3":"bug","4":"flying","5":"59","6":"123"},{"1":"Articuno","2":"144","3":"ice","4":"flying","5":"67","6":"122"},{"1":"Golbat","2":"42","3":"poison","4":"flying","5":"63","6":"121"},{"1":"Zapdos","2":"145","3":"electric","4":"flying","5":"63","6":"116"},{"1":"Pidgeot","2":"18","3":"normal","4":"flying","5":"59","6":"87"},{"1":"Doduo","2":"84","3":"normal","4":"flying","5":"55","6":"86"},{"1":"Fearow","2":"22","3":"normal","4":"flying","5":"47","6":"84"},{"1":"Butterfree","2":"12","3":"bug","4":"flying","5":"43","6":"71"},{"1":"Pidgeotto","2":"17","3":"normal","4":"flying","5":"43","6":"66"},{"1":"Farfetchd","2":"83","3":"normal","4":"flying","5":"31","6":"33"},{"1":"Zubat","2":"41","3":"poison","4":"flying","5":"31","6":"17"},{"1":"Pidgey","2":"16","3":"normal","4":"flying","5":"12","6":"4"},{"1":"Spearow","2":"21","3":"normal","4":"flying","5":"12","6":"4"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 Ah, I forgot Gyarados had a secondary Flying type. Even discounting
 Gyarados, and the two other Pokemon here whose designs are not inspired
@@ -624,23 +604,13 @@ my.data %>% group_by(type1) %>%
   arrange(desc(average))
 ```
 
-    ## # A tibble: 14 × 6
-    ##    type1    average median   min   max     sd
-    ##    <chr>      <dbl>  <dbl> <dbl> <dbl>  <dbl>
-    ##  1 dragon     105     87      71   157  45.7 
-    ##  2 rock        72.6   39      16   346 104.  
-    ##  3 ice         61     61      55    67   8.49
-    ##  4 ghost       57.7   59      51    63   6.11
-    ##  5 water       51.1   43      12   256  44.5 
-    ##  6 psychic     49.1   51      16    79  19.2 
-    ##  7 poison      48     41      16   138  31.2 
-    ##  8 fire        47.9   43      24    79  19.7 
-    ##  9 fighting    46.6   55      20    63  16.6 
-    ## 10 grass       42.7   39      16    79  21.5 
-    ## 11 normal      38.7   39      12    87  22.3 
-    ## 12 bug         35.4   39      12    59  18.1 
-    ## 13 electric    33.6   31      12    63  16.3 
-    ## 14 ground      33.5   33.5     8    75  20.3
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["type1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["average"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["median"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["min"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["max"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["sd"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"dragon","2":"105.00000","3":"87.0","4":"71","5":"157","6":"45.738387"},{"1":"rock","2":"72.55556","3":"39.0","4":"16","5":"346","6":"104.258226"},{"1":"ice","2":"61.00000","3":"61.0","4":"55","5":"67","6":"8.485281"},{"1":"ghost","2":"57.66667","3":"59.0","4":"51","5":"63","6":"6.110101"},{"1":"water","2":"51.07143","3":"43.0","4":"12","5":"256","6":"44.528749"},{"1":"psychic","2":"49.12500","3":"51.0","4":"16","5":"79","6":"19.231206"},{"1":"poison","2":"48.00000","3":"41.0","4":"16","5":"138","6":"31.189249"},{"1":"fire","2":"47.91667","3":"43.0","4":"24","5":"79","6":"19.709058"},{"1":"fighting","2":"46.57143","3":"55.0","4":"20","5":"63","6":"16.611814"},{"1":"grass","2":"42.66667","3":"39.0","4":"16","5":"79","6":"21.495595"},{"1":"normal","2":"38.70833","3":"39.0","4":"12","5":"87","6":"22.347997"},{"1":"bug","2":"35.41667","3":"39.0","4":"12","5":"59","6":"18.077904"},{"1":"electric","2":"33.55556","3":"31.0","4":"12","5":"63","6":"16.340985"},{"1":"ground","2":"33.50000","3":"33.5","4":"8","5":"75","6":"20.318886"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 Not as much parity in heights across type compared to what was seen with
 weights. If I remember correctly from my youth, there are a few
@@ -652,16 +622,13 @@ quick look at all Pokemon with a “height” greater than 7 feet:
 my.data %>% filter(height > 84) %>% arrange(desc(height)) %>% select(1:6)
 ```
 
-    ## # A tibble: 7 × 6
-    ##   name       id.number type1  type2  height weight
-    ##   <chr>          <int> <chr>  <chr>   <dbl>  <dbl>
-    ## 1 Onix              95 rock   ground    346    463
-    ## 2 Gyarados         130 water  flying    256    518
-    ## 3 Dragonair        148 dragon <NA>      157     36
-    ## 4 Arbok             24 poison <NA>      138    143
-    ## 5 Lapras           131 water  ice        98    485
-    ## 6 Kangaskhan       115 normal <NA>       87    176
-    ## 7 Dragonite        149 dragon flying     87    463
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["id.number"],"name":[2],"type":["int"],"align":["right"]},{"label":["type1"],"name":[3],"type":["chr"],"align":["left"]},{"label":["type2"],"name":[4],"type":["chr"],"align":["left"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"Onix","2":"95","3":"rock","4":"ground","5":"346","6":"463"},{"1":"Gyarados","2":"130","3":"water","4":"flying","5":"256","6":"518"},{"1":"Dragonair","2":"148","3":"dragon","4":"NA","5":"157","6":"36"},{"1":"Arbok","2":"24","3":"poison","4":"NA","5":"138","6":"143"},{"1":"Lapras","2":"131","3":"water","4":"ice","5":"98","6":"485"},{"1":"Kangaskhan","2":"115","3":"normal","4":"NA","5":"87","6":"176"},{"1":"Dragonite","2":"149","3":"dragon","4":"flying","5":"87","6":"463"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 As predicted. Onix, Gyarados, Dragonair, and Arbok, the four “tallest”
 Pokemon, are all serpent-like, and “height” would probably more
@@ -738,7 +705,7 @@ g <- ggplot(my.data, aes(defense))
 g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Defense") + ylab("Count") + theme_classic()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 Looks like some right skew, especially when compared to the Attack
 graph. Let’s check the boxplot:
@@ -753,7 +720,7 @@ g + geom_boxplot() + xlab("Type") + ylab("Base Defense") +
   theme(legend.position = "none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 Here, we see Rock-type Pokemon, and Ground-type to a lesser extent,
 stand out as those with the highest Defense stat. We do see potential
@@ -767,7 +734,7 @@ g <- ggplot(my.data, aes(speed))
 g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Speed") + theme_classic()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 Somewhat normal, with perhaps a touch of right skew.
 
@@ -785,7 +752,7 @@ g + geom_boxplot() +
   theme(legend.position = "none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-43-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 It appears Electric- and Psychic-type Pokemon are fast, and there is one
 really slow Water-type Pokemon.
@@ -798,7 +765,7 @@ g <- ggplot(my.data, aes(hp))
 g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base HP") + theme_classic()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-44-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 Lots of skew. There appear to be a few Pokemon with a ton of base hp.
 Now the boxplots:
@@ -813,7 +780,7 @@ g + geom_boxplot() + xlab("Type") + ylab("Base HP") +
   theme(legend.position = "none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-45-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 Both of those high HP Pokemon appear to be Normal-type. Now, let’s wrap
 up with a brief look and discussion of the “Special” stats.
@@ -887,15 +854,11 @@ both the modern assignment of Pokemon stats, with separate Special
 Attack/Special Defense, and under the Generation I singular Special
 stat. In other words, after Generation I:
 
-$$
-new.distance = \sqrt{special.attack^2 + special.defense^2}
-$$
+$new.distance = \sqrt{special.attack^2 + special.defense^2}$
 
 And within Generation I:
 
-$$
-old.distance = \sqrt{2(special^2)}
-$$
+$old.distance = \sqrt{2(special^2)}$
 
 Let’s derive these variables, calculate the difference, and see how
 Pokemon were “improved” or “weakened” by the splitting the Special stat.
@@ -982,20 +945,13 @@ the split. I’m curious as to which specific Pokemon were most affected:
 my.data %>% arrange(delta.distance) %>% select(1:4, 16)
 ```
 
-    ## # A tibble: 151 × 5
-    ##    name      id.number type1    type2   delta.distance
-    ##    <chr>         <int> <chr>    <chr>            <dbl>
-    ##  1 Mewtwo          150 psychic  <NA>             -39.4
-    ##  2 Chansey         113 normal   <NA>             -37.8
-    ##  3 Gastly           92 ghost    poison           -35.5
-    ##  4 Haunter          93 ghost    poison           -35.2
-    ##  5 Gengar           94 ghost    poison           -33.8
-    ##  6 Tangela         114 grass    <NA>             -33.7
-    ##  7 Exeggutor       103 grass    psychic          -31.0
-    ##  8 Kadabra          64 psychic  <NA>             -30.8
-    ##  9 Magneton         82 electric <NA>             -30.8
-    ## 10 Abra             63 psychic  <NA>             -30.0
-    ## # ℹ 141 more rows
+<div data-pagedtable="false">
+
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["id.number"],"name":[2],"type":["int"],"align":["right"]},{"label":["type1"],"name":[3],"type":["chr"],"align":["left"]},{"label":["type2"],"name":[4],"type":["chr"],"align":["left"]},{"label":["delta.distance"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Mewtwo","2":"150","3":"psychic","4":"NA","5":"-39.4184875"},{"1":"Chansey","2":"113","3":"normal","4":"NA","5":"-37.8127059"},{"1":"Gastly","2":"92","3":"ghost","4":"poison","5":"-35.4732557"},{"1":"Haunter","2":"93","3":"ghost","4":"poison","5":"-35.1590718"},{"1":"Gengar","2":"94","3":"ghost","4":"poison","5":"-33.7644529"},{"1":"Tangela","2":"114","3":"grass","4":"NA","5":"-33.7180601"},{"1":"Exeggutor","2":"103","3":"grass","4":"psychic","5":"-31.0028979"},{"1":"Kadabra","2":"64","3":"psychic","4":"NA","5":"-30.7811876"},{"1":"Magneton","2":"82","3":"electric","4":"NA","5":"-30.7811876"},{"1":"Abra","2":"63","3":"psychic","4":"NA","5":"-29.9597281"},{"1":"Tentacool","2":"72","3":"water","4":"poison","5":"-29.6179574"},{"1":"Seadra","2":"117","3":"water","4":"NA","5":"-29.2313082"},{"1":"Omastar","2":"139","3":"rock","4":"water","5":"-28.0054395"},{"1":"Drowzee","2":"96","3":"psychic","4":"NA","5":"-27.5345466"},{"1":"Hypno","2":"97","3":"psychic","4":"NA","5":"-26.4214913"},{"1":"Alakazam","2":"65","3":"psychic","4":"NA","5":"-25.8430907"},{"1":"Moltres","2":"146","3":"fire","4":"flying","5":"-25.6145307"},{"1":"Tentacruel","2":"73","3":"water","4":"poison","5":"-25.4835765"},{"1":"Gyarados","2":"130","3":"water","4":"flying","5":"-24.8023183"},{"1":"Horsea","2":"116","3":"water","4":"NA","5":"-24.6646056"},{"1":"Magnemite","2":"81","3":"electric","4":"NA","5":"-24.5777964"},{"1":"Weepinbell","2":"70","3":"grass","4":"poison","5":"-24.0312325"},{"1":"Cloyster","2":"91","3":"water","4":"ice","5":"-24.0312325"},{"1":"Bellsprout","2":"69","3":"grass","4":"poison","5":"-22.8372183"},{"1":"Zapdos","2":"145","3":"electric","4":"flying","5":"-22.7474773"},{"1":"Omanyte","2":"138","3":"rock","4":"water","5":"-21.8041051"},{"1":"Articuno","2":"144","3":"ice","4":"flying","5":"-19.7735106"},{"1":"Victreebel","2":"71","3":"grass","4":"poison","5":"-19.3558001"},{"1":"Tauros","2":"128","3":"normal","4":"NA","5":"-18.3723719"},{"1":"Dewgong","2":"87","3":"water","4":"ice","5":"-16.3460512"},{"1":"Seel","2":"86","3":"water","4":"NA","5":"-15.7783645"},{"1":"Parasect","2":"47","3":"bug","4":"grass","5":"-13.1370850"},{"1":"Dugtrio","2":"51","3":"ground","4":"NA","5":"-12.9716967"},{"1":"Eevee","2":"133","3":"normal","4":"NA","5":"-12.8669401"},{"1":"Ninetales","2":"38","3":"fire","4":"NA","5":"-12.7318073"},{"1":"Shellder","2":"90","3":"water","4":"NA","5":"-12.1614596"},{"1":"Vaporeon","2":"134","3":"water","4":"NA","5":"-10.2190733"},{"1":"Jolteon","2":"135","3":"electric","4":"NA","5":"-10.2190733"},{"1":"Flareon","2":"136","3":"fire","4":"NA","5":"-10.2190733"},{"1":"Starmie","2":"121","3":"water","4":"psychic","5":"-10.1773088"},{"1":"Venomoth","2":"49","3":"bug","4":"poison","5":"-10.1254755"},{"1":"Weezing","2":"110","3":"poison","4":"NA","5":"-10.0945751"},{"1":"Seaking","2":"119","3":"water","4":"NA","5":"-10.0594443"},{"1":"Staryu","2":"120","3":"water","4":"NA","5":"-9.9724803"},{"1":"Vulpix","2":"37","3":"fire","4":"NA","5":"-9.9177842"},{"1":"Exeggcute","2":"102","3":"grass","4":"psychic","5":"-9.8528137"},{"1":"Koffing","2":"109","3":"poison","4":"NA","5":"-9.8528137"},{"1":"Goldeen","2":"118","3":"water","4":"NA","5":"-9.6779000"},{"1":"Lapras","2":"131","3":"water","4":"ice","5":"-6.8748006"},{"1":"Raichu","2":"26","3":"electric","4":"NA","5":"-6.8632748"},{"1":"Gloom","2":"44","3":"grass","4":"poison","5":"-6.8503123"},{"1":"Golbat","2":"42","3":"poison","4":"flying","5":"-6.8188510"},{"1":"Oddish","2":"43","3":"grass","4":"poison","5":"-6.8188510"},{"1":"Sandslash","2":"28","3":"ground","4":"NA","5":"-6.7183939"},{"1":"Paras","2":"46","3":"bug","4":"grass","5":"-6.7183939"},{"1":"Diglett","2":"50","3":"ground","4":"NA","5":"-6.6308391"},{"1":"Zubat","2":"41","3":"poison","4":"flying","5":"-6.5685425"},{"1":"Sandshrew","2":"27","3":"ground","4":"NA","5":"-6.3708941"},{"1":"Kabutops","2":"141","3":"rock","4":"water","5":"-3.4700835"},{"1":"Magikarp","2":"129","3":"water","4":"NA","5":"-3.2842712"},{"1":"Bulbasaur","2":"1","3":"grass","4":"poison","5":"0.0000000"},{"1":"Ivysaur","2":"2","3":"grass","4":"poison","5":"0.0000000"},{"1":"Venusaur","2":"3","3":"grass","4":"poison","5":"0.0000000"},{"1":"Caterpie","2":"10","3":"bug","4":"NA","5":"0.0000000"},{"1":"Metapod","2":"11","3":"bug","4":"NA","5":"0.0000000"},{"1":"Weedle","2":"13","3":"bug","4":"poison","5":"0.0000000"},{"1":"Kakuna","2":"14","3":"bug","4":"poison","5":"0.0000000"},{"1":"Pidgey","2":"16","3":"normal","4":"flying","5":"0.0000000"},{"1":"Pidgeotto","2":"17","3":"normal","4":"flying","5":"0.0000000"},{"1":"Pidgeot","2":"18","3":"normal","4":"flying","5":"0.0000000"},{"1":"Spearow","2":"21","3":"normal","4":"flying","5":"0.0000000"},{"1":"Fearow","2":"22","3":"normal","4":"flying","5":"0.0000000"},{"1":"Pikachu","2":"25","3":"electric","4":"NA","5":"0.0000000"},{"1":"Nidoran-F","2":"29","3":"poison","4":"NA","5":"0.0000000"},{"1":"Nidorina","2":"30","3":"poison","4":"NA","5":"0.0000000"},{"1":"Nidoran-M","2":"32","3":"poison","4":"NA","5":"0.0000000"},{"1":"Nidorino","2":"33","3":"poison","4":"NA","5":"0.0000000"},{"1":"Meowth","2":"52","3":"normal","4":"NA","5":"0.0000000"},{"1":"Persian","2":"53","3":"normal","4":"NA","5":"0.0000000"},{"1":"Poliwag","2":"60","3":"water","4":"NA","5":"0.0000000"},{"1":"Poliwhirl","2":"61","3":"water","4":"NA","5":"0.0000000"},{"1":"Machop","2":"66","3":"fighting","4":"NA","5":"0.0000000"},{"1":"Geodude","2":"74","3":"rock","4":"ground","5":"0.0000000"},{"1":"Graveler","2":"75","3":"rock","4":"ground","5":"0.0000000"},{"1":"Ponyta","2":"77","3":"fire","4":"NA","5":"0.0000000"},{"1":"Rapidash","2":"78","3":"fire","4":"NA","5":"0.0000000"},{"1":"Slowpoke","2":"79","3":"water","4":"psychic","5":"0.0000000"},{"1":"Doduo","2":"84","3":"normal","4":"flying","5":"0.0000000"},{"1":"Dodrio","2":"85","3":"normal","4":"flying","5":"0.0000000"},{"1":"Krabby","2":"98","3":"water","4":"NA","5":"0.0000000"},{"1":"Kingler","2":"99","3":"water","4":"NA","5":"0.0000000"},{"1":"Voltorb","2":"100","3":"electric","4":"NA","5":"0.0000000"},{"1":"Electrode","2":"101","3":"electric","4":"NA","5":"0.0000000"},{"1":"Rhyhorn","2":"111","3":"ground","4":"rock","5":"0.0000000"},{"1":"Rhydon","2":"112","3":"ground","4":"rock","5":"0.0000000"},{"1":"Ditto","2":"132","3":"normal","4":"NA","5":"0.0000000"},{"1":"Dratini","2":"147","3":"dragon","4":"NA","5":"0.0000000"},{"1":"Dragonair","2":"148","3":"dragon","4":"NA","5":"0.0000000"},{"1":"Dragonite","2":"149","3":"dragon","4":"flying","5":"0.0000000"},{"1":"Mew","2":"151","3":"psychic","4":"NA","5":"0.0000000"},{"1":"Vileplume","2":"45","3":"grass","4":"poison","5":"0.7053478"},{"1":"Farfetchd","2":"83","3":"normal","4":"flying","5":"2.8755545"},{"1":"Clefairy","2":"35","3":"normal","4":"NA","5":"3.6062163"},{"1":"Electabuzz","2":"125","3":"electric","4":"NA","5":"7.2673350"},{"1":"Butterfree","2":"12","3":"bug","4":"flying","5":"7.2788608"},{"1":"Nidoqueen","2":"31","3":"poison","4":"ground","5":"7.2918233"},{"1":"Nidoking","2":"34","3":"poison","4":"ground","5":"7.2918233"},{"1":"Porygon","2":"137","3":"normal","4":"NA","5":"7.2918233"},{"1":"Primeape","2":"57","3":"fighting","4":"NA","5":"7.3426308"},{"1":"Golem","2":"76","3":"rock","4":"ground","5":"7.3651859"},{"1":"Charmander","2":"4","3":"fire","4":"NA","5":"7.3918186"},{"1":"Machoke","2":"67","3":"fighting","4":"NA","5":"7.3918186"},{"1":"Kabuto","2":"140","3":"rock","4":"water","5":"7.4237417"},{"1":"Grimer","2":"88","3":"poison","4":"NA","5":"7.4626999"},{"1":"Cubone","2":"104","3":"ground","4":"NA","5":"7.4626999"},{"1":"Mankey","2":"56","3":"fighting","4":"NA","5":"7.5112966"},{"1":"Rattata","2":"19","3":"normal","4":"NA","5":"7.6562873"},{"1":"Arbok","2":"24","3":"poison","4":"NA","5":"10.3795886"},{"1":"Squirtle","2":"7","3":"water","4":"NA","5":"10.5050839"},{"1":"Ekans","2":"23","3":"poison","4":"NA","5":"10.6326480"},{"1":"Clefable","2":"36","3":"normal","4":"NA","5":"10.6543705"},{"1":"Magmar","2":"126","3":"fire","4":"NA","5":"11.0358947"},{"1":"Golduck","2":"55","3":"water","4":"NA","5":"11.0603385"},{"1":"Charmeleon","2":"5","3":"fire","4":"NA","5":"11.1537591"},{"1":"Wartortle","2":"8","3":"water","4":"NA","5":"11.1537591"},{"1":"Lickitung","2":"108","3":"normal","4":"NA","5":"11.1940498"},{"1":"Aerodactyl","2":"142","3":"rock","4":"flying","5":"11.1940498"},{"1":"Pinsir","2":"127","3":"bug","4":"NA","5":"11.2407231"},{"1":"Psyduck","2":"54","3":"water","4":"NA","5":"11.2954192"},{"1":"Venonat","2":"48","3":"bug","4":"poison","5":"11.4388100"},{"1":"Onix","2":"95","3":"rock","4":"ground","5":"11.6568623"},{"1":"Mr-Mime","2":"122","3":"psychic","4":"NA","5":"14.7836373"},{"1":"Jynx","2":"124","3":"ice","4":"psychic","5":"14.8140505"},{"1":"Blastoise","2":"9","3":"water","4":"NA","5":"14.8844081"},{"1":"Arcanine","2":"59","3":"fire","4":"NA","5":"14.9253998"},{"1":"Slowbro","2":"80","3":"water","4":"psychic","5":"14.9253998"},{"1":"Poliwrath","2":"62","3":"water","4":"fighting","5":"15.0225931"},{"1":"Machamp","2":"68","3":"fighting","4":"NA","5":"15.0807912"},{"1":"Raticate","2":"20","3":"normal","4":"NA","5":"15.3125746"},{"1":"Growlithe","2":"58","3":"fire","4":"NA","5":"15.3125746"},{"1":"Jigglypuff","2":"39","3":"normal","4":"NA","5":"16.1228116"},{"1":"Charizard","2":"6","3":"fire","4":"flying","5":"18.0163023"},{"1":"Scyther","2":"123","3":"bug","4":"flying","5":"19.3006933"},{"1":"Marowak","2":"105","3":"ground","4":"NA","5":"23.6291332"},{"1":"Muk","2":"89","3":"poison","4":"NA","5":"27.3447229"},{"1":"Wigglytuff","2":"40","3":"normal","4":"NA","5":"27.9047365"},{"1":"Beedrill","2":"15","3":"bug","4":"poison","5":"28.1481884"},{"1":"Kangaskhan","2":"115","3":"normal","4":"NA","5":"32.8741766"},{"1":"Snorlax","2":"143","3":"normal","4":"NA","5":"35.8454418"},{"1":"Hitmonlee","2":"106","3":"fighting","4":"NA","5":"65.9364891"},{"1":"Hitmonchan","2":"107","3":"fighting","4":"NA","5":"65.9364891"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+
+</div>
 
 Ah, Mewtwo. He was (and still is, as far as I know) the “strongest”
 Generation I Pokemon, so he could afford to be “weakened” a bit. Here’s
@@ -1010,10 +966,10 @@ g + geom_hline(yintercept = 0) +
   scale_x_discrete(guide = guide_axis(angle = 90)) + 
   scale_fill_manual(name = "Type", values = poke.colors) + 
   theme_classic() + 
-  theme(legend.position = "top" , axis.text.x = element_text(size = 5), axis.title.x = element_blank())
+  theme(legend.position = "top" , axis.text.x = element_text(size = 3), axis.title.x = element_blank())
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-46-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 The graph shows Mewtwo being “weakened” the most of all. Two
 Fighting-type Pokemon, Hitmonchan and Hitmonlee, appeared to benefit
