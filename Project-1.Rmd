@@ -6,8 +6,7 @@ output:
   github_document:
     html_preview: false
     toc: true
-    toc_depth: 3
-    df_print : tibble
+    toc_depth: 4
 ---
 
 ```{r setup, include=FALSE}
