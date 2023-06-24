@@ -6,6 +6,8 @@ output:
   github_document:
     html_preview: false
     toc: true
+    toc_depth: 3
+    df_print : tibble
 ---
 
 ```{r setup, include=FALSE}
@@ -316,7 +318,7 @@ my.data %>% group_by(type2) %>%
 ```
 Interesting. Flying-type Pokemon shake out in the middle of the pack. Apparently there are some very heavy flying things in the Pokemon universe, and a bit of right-skew in the distribution. Out of curiosity, let's see them all together:
 
-```{r}
+```{r heavy_flying}
 my.data %>% filter(type2 == "flying") %>% arrange(desc(weight)) %>% select(1:6)
 ```
 
@@ -477,15 +479,12 @@ g + geom_abline(slope = 1, intercept = 0) +
 
 As expected, a not particularly illuminating visual of a straight y=x line. With some application of the Pythagorean theorem, we can calculate the "distance" each Pokemon resides from the hypothetical (0,0) under both the modern assignment of Pokemon stats, with separate Special Attack/Special Defense, and under the Generation I singular Special stat. In other words, after Generation I:
 
-$$
-new.distance = \sqrt{special.attack^2 + special.defense^2}
-$$
+
+$new.distance = \sqrt{special.attack^2 + special.defense^2}$
 
 And within Generation I:
 
-$$
-old.distance = \sqrt{2(special^2)}
-$$
+$old.distance = \sqrt{2(special^2)}$
 
 Let's derive these variables, calculate the difference, and see how Pokemon were "improved" or "weakened" by the splitting the Special stat.
 
@@ -546,7 +545,7 @@ g + geom_hline(yintercept = 0) +
   scale_x_discrete(guide = guide_axis(angle = 90)) + 
   scale_fill_manual(name = "Type", values = poke.colors) + 
   theme_classic() + 
-  theme(legend.position = "top" , axis.text.x = element_text(size = 5), axis.title.x = element_blank())
+  theme(legend.position = "top" , axis.text.x = element_text(size = 3), axis.title.x = element_blank())
 ```
 
 The graph shows Mewtwo being "weakened" the most of all. Two Fighting-type Pokemon, Hitmonchan and Hitmonlee, appeared to benefit greatly from the Special split. Overall, as the initial contingency table showed, there is a pretty nice division of "weakened" and "improved" Pokemon.
