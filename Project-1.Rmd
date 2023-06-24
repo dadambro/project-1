@@ -80,7 +80,9 @@ return(poke.table)
 Lets test it out. My favorite Pokemon as a kid was Rhydon, so let’s make a query for Rhydon, using imperial units:
 
 ```{r lookup_example1}
-pokemon.lookup("rhydon", unit = "imperial")
+t1 <- pokemon.lookup("rhydon", unit = "imperial")
+
+paged_table(t1)
 ```
 
 Now lets demonstrate how it functions with using a numeric Pokemon ID and metric units. How about one of the 300 first Pokemon, selected randomly?
