@@ -100,18 +100,13 @@ Lets test it out. My favorite Pokemon as a kid was Rhydon, so let’s make
 a query for Rhydon, using imperial units:
 
 ``` r
-t1 <- pokemon.lookup("rhydon", unit = "imperial")
-
-paged_table(t1)
+pokemon.lookup("rhydon", unit = "imperial")
 ```
 
-<div data-pagedtable="false">
-
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["id.number"],"name":[2],"type":["int"],"align":["right"]},{"label":["type1"],"name":[3],"type":["chr"],"align":["left"]},{"label":["type2"],"name":[4],"type":["chr"],"align":["left"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["hp"],"name":[7],"type":["int"],"align":["right"]},{"label":["attack"],"name":[8],"type":["int"],"align":["right"]},{"label":["defense"],"name":[9],"type":["int"],"align":["right"]},{"label":["special.attack"],"name":[10],"type":["int"],"align":["right"]},{"label":["special.defense"],"name":[11],"type":["int"],"align":["right"]},{"label":["speed"],"name":[12],"type":["int"],"align":["right"]}],"data":[{"1":"Rhydon","2":"112","3":"ground","4":"rock","5":"75","6":"265","7":"105","8":"130","9":"120","10":"45","11":"45","12":"40"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-
-</div>
+    ## # A tibble: 1 × 12
+    ##   name   id.number type1  type2 height weight    hp attack defense special.attack special.defense speed
+    ##   <chr>      <int> <chr>  <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
+    ## 1 Rhydon       112 ground rock      75    265   105    130     120             45              45    40
 
 Now lets demonstrate how it functions with using a numeric Pokemon ID
 and metric units. How about one of the 300 first Pokemon, selected
@@ -122,9 +117,9 @@ pokemon.lookup(sample(1:300,1), unit = "metric")
 ```
 
     ## # A tibble: 1 × 12
-    ##   name      id.number type1  type2 height weight    hp attack defense special.attack special.defense speed
-    ##   <chr>         <int> <chr>  <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
-    ## 1 Nidoran-M        32 poison <NA>     0.5      9    46     57      40             40              40    50
+    ##   name    id.number type1 type2 height weight    hp attack defense special.attack special.defense speed
+    ##   <chr>       <int> <chr> <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
+    ## 1 Goldeen       118 water <NA>     0.6     15    45     67      60             35              50    63
 
 The ultimate plan is to use `lapply` on `pokemon.lookup` to generate
 large reports for analysis. However, there is some functionality I would
@@ -698,7 +693,7 @@ stats are among the 151 Generation I Pokemon. First, Attack:
 ``` r
 g <- ggplot(my.data, aes(attack))
 
-g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Attack") + theme_classic()
+g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Attack") + ylab("Count") + theme_classic()
 ```
 
 ![](README_files/figure-gfm/attack_histogram-1.png)<!-- -->
@@ -763,7 +758,7 @@ Let’s check speed the same way. Histogram first:
 ``` r
 g <- ggplot(my.data, aes(speed))
 
-g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Speed") + theme_classic()
+g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base Speed") + ylab("Count") + theme_classic()
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
@@ -794,7 +789,7 @@ Now for HP. Histogram:
 ``` r
 g <- ggplot(my.data, aes(hp))
 
-g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base HP") + theme_classic()
+g + geom_histogram(binwidth = 10, color = "black", fill = "royalblue1", size = 1) + xlab("Base HP") + ylab("Count") + theme_classic()
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
