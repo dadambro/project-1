@@ -1,7 +1,7 @@
 Project-1
 ================
 Damon D’Ambrosio
-2023-06-24
+2023-06-25
 
 - [Requirements](#requirements)
 - [API Interaction Custom Functions](#api-interaction-custom-functions)
@@ -117,9 +117,9 @@ pokemon.lookup(sample(1:300,1), unit = "metric")
 ```
 
     ## # A tibble: 1 × 12
-    ##   name   id.number type1  type2 height weight    hp attack defense special.attack special.defense speed
-    ##   <chr>      <int> <chr>  <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
-    ## 1 Meowth        52 normal <NA>     0.4    4.2    40     45      35             40              40    90
+    ##   name    id.number type1 type2 height weight    hp attack defense special.attack special.defense speed
+    ##   <chr>       <int> <chr> <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
+    ## 1 Corsola       222 water rock     0.6      5    65     55      95             65              95    35
 
 The ultimate plan is to use `lapply` on `pokemon.lookup` to generate
 large reports for analysis. However, there is some functionality I would
