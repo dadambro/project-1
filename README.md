@@ -117,9 +117,9 @@ pokemon.lookup(sample(1:300,1), unit = "metric")
 ```
 
     ## # A tibble: 1 × 12
-    ##   name   id.number type1   type2 height weight    hp attack defense special.attack special.defense speed
-    ##   <chr>      <int> <chr>   <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
-    ## 1 Espeon       196 psychic <NA>     0.9   26.5    65     65      60            130              95   110
+    ##   name       id.number type1 type2 height weight    hp attack defense special.attack special.defense speed
+    ##   <chr>          <int> <chr> <chr>  <dbl>  <dbl> <int>  <int>   <int>          <int>           <int> <int>
+    ## 1 Forretress       205 bug   steel    1.2   126.    75     90     140             60              60    40
 
 The ultimate plan is to use `lapply` on `pokemon.lookup` to generate
 large reports for analysis. However, there is some functionality I would
@@ -885,11 +885,11 @@ both the modern assignment of Pokemon stats, with separate Special
 Attack/Special Defense, and under the Generation I singular Special
 stat. In other words, after Generation I:
 
-$$ new.distance = \sqrt{special.attack^2 + special.defense^2} $$
+$`new.distance = \sqrt{special.attack^2 + special.defense^2}`$
 
 And within Generation I:
 
-$$ old.distance = \sqrt{2(special^2)} $$
+$`old.distance = \sqrt{2(special^2)}`$
 
 Let’s derive these variables, calculate the difference, and see how
 Pokemon were “improved” or “weakened” by the splitting the Special stat.
