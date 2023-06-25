@@ -484,11 +484,11 @@ g + geom_abline(slope = 1, intercept = 0) +
 
 As expected, a not particularly illuminating visual of a straight y=x line. With some application of the Pythagorean theorem, we can calculate the "distance" each Pokemon resides from the hypothetical (0,0) under both the modern assignment of Pokemon stats, with separate Special Attack/Special Defense, and under the Generation I singular Special stat. In other words, after Generation I:
 
-$new.distance = \sqrt{special.attack^2 + special.defense^2}$
+$$ new.distance = \sqrt{special.attack^2 + special.defense^2} $$
 
 And within Generation I:
 
-$old.distance = \sqrt{2(special^2)}$
+$$ old.distance = \sqrt{2(special^2)} $$
 
 Let's derive these variables, calculate the difference, and see how Pokemon were "improved" or "weakened" by the splitting the Special stat.
 
